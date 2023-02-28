@@ -5,9 +5,9 @@
     proxmox_ip: "{{ ansible_facts['ip_addresses'][1] }}"
   template:
     src: "send-mail.ps1.j2"
-    dest: "{{ ansible_user_dir }}/send-mail.ps1"
+    dest: "{{ ansible_user_dir }}\send-mail.ps1"
     owner: Administrator
 - name: Run command
-  win_command:
-    cmd: 'Powershell.exe -File "{{ ansible_user_dir }}/send-mail.ps1"'
+  win_shell:
+    cmd: Powershell.exe -File "{{ ansible_user_dir }}\send-mail.ps1"
     
