@@ -1,49 +1,52 @@
-# Ansible Collections for Automating Proxmox VMs and Server Applications
+# Ansible Automation Playbooks
 
-This repository contains Ansible collections for automating the deployment of Proxmox VMs and server applications, including Jira and Confluence servers. These collections are designed to simplify the process of setting up and managing your infrastructure, while providing a flexible and extensible framework for customization and scaling.
-
+This repository contains a set of Ansible playbooks and roles for automating various tasks related to virtual machine creation and application installation.
 ## Getting Started
 
-To use this repository, you will need to have Ansible installed on your local machine. You can download and install Ansible from the official website: [https://www.ansible.com/](https://www.ansible.com/)
+To use this repository, you will need to have knowledge about Ansible and its various concepts like roles, handlers, and inventories. You can install Ansible from the [official installation guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 
-Once you have installed Ansible, you can clone this repository to your local machine and navigate to the root directory:
+Additionally, you can use Ansible Semaphore for automation, which is a web-based tool for managing Ansible projects. You can find more information about Ansible Semaphore at their official website [ansible-semaphore](https://www.ansible-semaphore.com/).
 
+## Introduction
+
+This project addresses the problem of developers needing to set up their development environments and test various applications like databases, confluence, and Jira without having to depend on the admin to create or set up virtual machines.
+
+To solve this problem, we have created a set of Ansible playbooks and roles that can be used to automate the creation of virtual machines with specific applications installed on them. We have also used Ansible Semaphore to provide a web interface to trigger these playbooks and create VMs.
+
+## Requirements
+
+To use these playbooks, you will need to have Python version 3.5 or later installed. Additionally, you can integrate with Ansible Semaphore to automatically run a template.
+
+We have used block and rescue in our playbooks to handle errors and take appropriate actions.
+
+To get started, clone this repository to your local machine using the following commands:bash
 ```bash
-git clone https://github.com/opsdev91/ansible_collection
-cd ansible_collection
+git clone https://github.com/opsdev91/ansible_automation
+cd ansible_automation
 ```
 
+If you are using Ansible vault with these examples, you can add the ```--ask-vault-pass``` flag after the command.
 
-## Folder Structure
+You can define variables in a separate var file and include it in your playbook using the ```vars_files``` parameter.
 
-The repository is organized into the following directories and files:
+## Playbooks and Roles
 
-- `ansible.cfg`: Ansible configuration file
-- `confluence_playbook.yml`: Ansible playbook for creating a VM with installed Confluence
-- `delete_vm.yml`: Ansible playbook for deleting a VM from Proxmox
-- `inventories`: Directory containing inventory files for different environments
-- `jira_playbook.yml`: Ansible playbook for creating a VM with installed Jira
-- `proxmox_playbook.yml`: Ansible playbook for creating a VM with common apps (nginx, java, mysql, postgres, mssql)
-- `requirements.yml`: Ansible requirements file
-- `roles`: Directory containing Ansible roles for different applications and services
-- `test_playbook.yml`: Ansible playbook for testing the infrastructure
-- `vars`: Directory containing variable files for different environments and applications
-- `windows_server.yml`: Ansible playbook for creating a Windows Server VM
+- ```confluence_playbook.yml```: This playbook creates a new virtual machine with Confluence installed on it. It also creates a PostgreSQL 9.6 database and uses it to store Confluence data.
 
-## Usage
+- ```delete_vm.yml```: This playbook deletes a virtual machine via the Proxmox API.
 
-To use the Ansible collections in this repository, you can simply run the desired playbook with the `ansible-playbook` command, specifying the inventory file and any necessary variables:
+- ```proxmox_playbook.yml```: This playbook creates a virtual machine and installs various applications like MySQL (multiple versions including 5.6, 5.7, and 8.0) and PostgreSQL (versions 9.6, 10, 11, 12, and 13).
 
-```bash
-ansible-playbook -i inventories/dev -e @vars/proxmox.yml proxmox_playbook.yml
-```
+- ```jira_playbook.yml```: This playbook creates a new virtual machine with Jira installed on it.
 
-This command will create a new VM on your Proxmox server with the specified apps installed.
+- ```windows_server.yml```: This playbook creates a new virtual machine with either Windows Server 2022 or Windows 10 installed on it.
+
+The ```roles``` folder contains roles for various applications like MySQL, PostgreSQL, Confluence, Windows, Nginx Proxy (using Nginx Proxy Manager server), and Java.
 
 ## Contributing
-
 If you would like to contribute to this repository, please feel free to submit a pull request with your changes or suggestions. We welcome any feedback or ideas for improving this project!
 
-## License
+## Get Help
 
-This repository is licensed under the [MIT License](LICENSE). Feel free to use and modify the code as needed.
+If you have any questions or problems, you can refer to the included FAQ or open a new issue in the [GitHub issue tracker](https://github.com/opsdev91/ansible_automation/issues). If you don't have a GitHub account, you can also contact us through our website [agileops.vn](https://agileops.vn/).
+
