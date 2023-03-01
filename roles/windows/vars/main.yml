@@ -38,7 +38,7 @@ proxmox_memory: 4096
 
 disk_size: 64
 
-remote_tmp: C:\Users\Administrator\tmp
+# remote_tmp: C:\Users\Administrator\tmp
 
 hosts_group: windows_hosts
 
