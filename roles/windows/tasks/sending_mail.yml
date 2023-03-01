@@ -6,9 +6,9 @@
   template:
     src: "send-mail.ps1.j2"
     dest: "{{ ansible_user_dir }}/send-mail.ps1"
-    owner: {{ ansible_ssh_user }}
+    owner: "{{ ansible_ssh_user }}"
 
 - name: Run command
   win_shell:
-    cmd: "Powershell.exe -File {{ ansible_user_dir }}\send-mail.ps1"
+    cmd: "Powershell.exe -File {{ ansible_user_dir }}/send-mail.ps1"
     
