@@ -9,5 +9,5 @@
     owner: Administrator
 - name: Run command
   win_shell:
-    cmd: "Powershell.exe -File "{{ ansible_user_dir }}\send-mail.ps1"
+    cmd: "Powershell.exe -File {{ ansible_user_dir }}\send-mail.ps1"
     
