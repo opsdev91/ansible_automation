@@ -3,7 +3,7 @@
   connection: local
   vars:
     - proxmox_creation: false
-    - proxmox_hostname: Jira-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
+    - proxmox_hostname: Jira-{{ to_email | regex_search('([^@]+)') }}-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
     - proxmox_core: 4
   roles:
     - { role: proxmox, when: proxmox_creation == 'true' }

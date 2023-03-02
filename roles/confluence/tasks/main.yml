@@ -36,6 +36,10 @@
   tags:
     - config
 
+- name: Import startup argument
+  command: sed -i '1s/^/CATALINA_OPTS="{{ item }} ${CATALINA_OPTS}"\n/' {{ confluence_installation_dir }}/bin/setenv.sh
+  with_items: "{{ startup_arguments }}"
+
 - name: confluence | Configuring service
   ansible.builtin.service:
     name: confluence
@@ -56,3 +60,8 @@
     register_domain: "{{ confluence_domain }}"
     forward_port: "{{ confluence_connector_port }}"
     forward_host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+
+
+
+    

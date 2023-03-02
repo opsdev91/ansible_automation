@@ -4,7 +4,7 @@ proxmox_storage: local-lvm
 # Add this variable to add new user into vm
 # ssh_user: agileops
 proxmox_node: agileops158
-proxmox_hostname: Windows-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
+proxmox_hostname: Windows-{{ to_email | regex_search('([^@]+)') }}-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
 proxmox_api_user: root@pam
 
 proxmox_api_host: 10.158.0.10
@@ -38,7 +38,7 @@ proxmox_memory: 4096
 
 disk_size: 64
 
-remote_tmp: C:\Users\Administrator\tmp
+# remote_tmp: C:\Users\Administrator\tmp
 
 hosts_group: windows_hosts
 

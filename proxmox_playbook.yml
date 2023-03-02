@@ -3,7 +3,7 @@
   connection: local
   vars:
       - proxmox_creation: false
-      - proxmox_hostname: Linux-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
+      - proxmox_hostname: Linux-{{ to_email | regex_search('([^@]+)') }}-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
   roles:
       - { role: proxmox, when: proxmox_creation == 'true' }
 
