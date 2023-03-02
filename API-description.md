@@ -11,6 +11,10 @@ This API requires the following arguments
 - 'proxmox_memory' which is the memory (in MB) of the VM you want to start 
 - 'proxmox_core' which is the core of the VM you want to start 
 - 'to_email' which is the email of the requester.
+- 'startup_arguments' Based on the system properties listed in https://confluence.atlassian.com/doc/recognized-system-properties-190430.html, you need to define them in an array.
+    ```
+    Ex: startup_arguments: ['-Datlassian.mail.senddisabled=true']
+    ```
 ## Windows API: 
 This API requires the following arguments 
 - 'proxmox_memory' which is the memory (in MB) of the VM you want to start
