@@ -60,6 +60,6 @@
 
 - name: Import startup argument
   command: sed -i '1s/^/CATALINA_OPTS="{{ item }} ${CATALINA_OPTS}"\n/' {{ confluence_installation_dir }}/bin/setenv.sh
-  with_items: "{{ startup_argument }}"
+  with_items: "{{ startup_arguments }}"
   notify: restart confluence
     
