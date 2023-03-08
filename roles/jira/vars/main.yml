@@ -1,9 +1,9 @@
 ---
 jira_user: jira
 jira_group: jira
-
+jira_version: 9.6.0
 jira_package: atlassian-jira-software-{{ jira_version }}-x64.bin
-jira_url: https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-9.4.3-x64.bin
+jira_url: https://product-downloads.atlassian.com/software/jira/downloads/{{jira_package}}
 jira_installation_dir: /opt/atlassian/jira
 jira_home_dir: /var/atlassian/application-data/jira
 jira_download_dir: /download

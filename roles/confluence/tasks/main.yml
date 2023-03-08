@@ -5,6 +5,11 @@
   tags:
     - postgres
 
+- name: confluence | Create MySQL database
+  include_tasks: mysql.yml
+  when: confluence_database_engine == "mysql"
+  tags:
+    - mysql
 
 - name: confluence | Download package
   get_url:

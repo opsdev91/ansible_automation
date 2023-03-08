@@ -1,8 +1,8 @@
 ---
 # Install Docker CE
-# - name: Fix TLS
-#   shell: update-ca-certificates --fresh && export SSL_CERT_DIR=/etc/ssl/certs
-#   become: yes
+- name: Fix TLS
+  shell: update-ca-certificates --fresh && export SSL_CERT_DIR=/etc/ssl/certs
+  become: true
 
 # - name: Install Docker CE
 #   include_role:
@@ -28,16 +28,19 @@
 
 # What is difference between import_role and include_role
 
+
 - name: Install Mysql
   vars:
-    - mysql_user_name: "{{ database_user }}"
-    - mysql_user_password: "{{ database_password }}"
-    - version_mysql_install: "{{ db_version }}"
+    mysql_user_name: "{{ database_user }}"
+    mysql_user_password: "{{ database_password }}"
+    version_mysql_install: "{{ db_version }}"
   include_role:
     name: mysql
   when: db_engine == "mysql"
 
 - name: Install Postgresql
+  vars:
+    postgresql_version: "{{ db_version }}"
   include_role:
     name: postgres
   when: db_engine == "postgresql"

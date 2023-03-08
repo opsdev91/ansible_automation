@@ -1,6 +1,4 @@
 ---
-
-
 - name: Ensure default user is present.
   mysql_user:
     login_unix_socket: /run/mysqld/mysqld.sock

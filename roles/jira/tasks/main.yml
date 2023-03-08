@@ -14,6 +14,12 @@
   tags:
       - postgres
 
+- name: confluence | Create MySQL database
+  include_tasks: mysql.yml
+  when: jira_database_engine == "mysql"
+  tags:
+    - mysql
+
 - name: JIRA | Install dependencies
   ansible.builtin.apt:
       name: fontconfig

@@ -1,9 +1,9 @@
 ---
 confluence_user: confluence
 confluence_group: confluence
-
-# confluence_package: atlassian-confluence-{{ confluence_version }}-x64.bin
-confluence_url: https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.1.0-x64.bin
+confluence_version: 8.1.0
+confluence_package: atlassian-confluence-{{ confluence_version }}-x64.bin
+confluence_url: https://product-downloads.atlassian.com/software/confluence/downloads/{{ confluence_package }}
 confluence_installation_dir: /opt/atlassian/confluence
 confluence_home_dir: /var/atlassian/application-data/confluence
 confluence_download_dir: /download
