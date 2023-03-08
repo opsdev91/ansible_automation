@@ -59,14 +59,13 @@
         - set_fact:
             ssh_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             ssh_user: "{{ to_email | regex_search('([^@]+)') }}"
-            database: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            db_engine: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=0) | first | default('')}}"
+            db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             jira_version: "{{ applications | select('search','jira') | map('split', ':') | map(attribute=1) | first | default('')}}"
             confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
-        - set_fact:
-            db_engine: "{{ database.split(':')[0] }}"
-            db_version: "{{ database.split(':')[1] }}"
+
         - name: Add user to VM
           include_role:
             name: proxmox
