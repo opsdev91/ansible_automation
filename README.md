@@ -50,3 +50,24 @@ If you would like to contribute to this repository, please feel free to submit a
 
 If you have any questions or problems, you can refer to the included FAQ or open a new issue in the [GitHub issue tracker](https://github.com/opsdev91/ansible_automation/issues). If you don't have a GitHub account, you can also contact us through our website [agileops.vn](https://agileops.vn/).
 
+
+
+{
+    "errorMessage": null,
+    "statusCode": "201",
+    "data" : {
+        "issueKey": "TEST-1",
+        "serverIp": "10.158.10.100",
+        "User": "tinhtq",
+        "Password": "123456789",
+        "database_engine": "postgresql"
+        "database_engine_version": "9.6"
+        "database_username": "tinhtq"
+        "database_password": "12345678"
+        "confluence_database_name": "confluence"
+        "jira_database_name": "jira"
+        "database_host": "localhost"
+        "database_port": "5432
+
+    }
+}

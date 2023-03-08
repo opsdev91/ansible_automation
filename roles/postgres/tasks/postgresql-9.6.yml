@@ -5,7 +5,7 @@
   with_items: "{{ dependency_pkgs }}"
   register: res_apt
   until: "res_apt.stderr is undefined or '/var/lib/dpkg/lock-frontend' not in res_apt.stderr"
-  retries: 10
+  retries: 20
   delay: 30
 
 - name: Add APT key for PostgreSQL keyserver

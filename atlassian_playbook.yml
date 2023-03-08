@@ -113,6 +113,7 @@
           when: jira_version != ""
         - name: Send mail
           vars:
+            Issuekey: abc
             mail: "confluence"
             confluence_database_engine: "{{ db_engine }}"
             confluence_database_engine_version: "{{ db_version }}"
