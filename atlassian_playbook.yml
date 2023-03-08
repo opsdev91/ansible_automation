@@ -65,7 +65,8 @@
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             jira_version: "{{ applications | select('search','jira') | map('split', ':') | map(attribute=1) | first | default('')}}"
             confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
-
+        - debug:
+            msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
         - name: Add user to VM
           include_role:
             name: proxmox

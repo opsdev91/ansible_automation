@@ -70,7 +70,7 @@
   until: '"dpkg: error: dpkg frontend lock is locked by another process" not in dpkg_result.stderr'
   shell: "dpkg -i {{ ansible_env.PWD }}/*.deb"
   register: dpkg_result
-  ignore_errors: yes
+  ignore_errors: true
 
 
 
