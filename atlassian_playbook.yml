@@ -92,7 +92,7 @@
             confluence_database_engine_version: "{{ db_version }}"
             confluence_database_username: "{{ database_username }}"
             confluence_database_password: "{{ database_password }}"
-            confluence_database_name: atlassian
+            confluence_database_name: confluence
           include_role:
             name: confluence
           when: confluence_version != ""
@@ -107,7 +107,7 @@
             jira_database_engine_version: "{{ db_version }}"
             jira_database_username:  "{{ database_username }}"
             jira_database_password: "{{ database_password }}"
-            jira_database_name: atlassian
+            jira_database_name: jira
           include_role:
             name: jira
           when: jira_version != ""
