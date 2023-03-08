@@ -2,14 +2,16 @@
   tasks:
     - set_fact:
         db_string_default: "{{ applications }}"
-        db_engine: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=0) | first | default('')}}"
-        db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+        db_engine: "{{ (applications | select('match', '^(mysql|postgresql):.*') | list | first | regex_search('^[^:]*')).0 | default('') }}"
+        db_version: "{{ (applications | select('match', '^(mysql|postgresql):.*') | list | first | regex_search('(?<=:)[^:]*$')).0 | default('') }}"
+
+
 
     # - set_fact:
     #     db_engine: "{{ db_string.split(':')[0] }}"
     #     db_version: "{{ db_string.split(':')[1] }}"
     - debug:
-        msg: "{{ db_engine }} is {{ db_version }}"
+        msg: "{{ db_engine }} "
     # - debug: 
     #     msg: "{{ database }} is {{ }}"
       # when: db_string != ""

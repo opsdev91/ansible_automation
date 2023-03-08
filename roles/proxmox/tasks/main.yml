@@ -1,4 +1,7 @@
 ---
+- name: Print Ansible version
+  debug:
+    msg: {{ ansible_version }}
 - name: Get Token
   uri:
     url: "{{ proxmox_base_endpoint }}/json/access/ticket"
