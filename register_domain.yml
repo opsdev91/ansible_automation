@@ -1,0 +1,16 @@
+- name: Register domain
+  hosts: localhost
+  tasks:
+    - block: 
+        - name: Register domain role
+          include_role:
+            name: nginx-proxy
+        - name: Return code
+          debug:
+            msg: "this is ok {{ issueKey }}"
+      rescue:
+        - name: Error handling task
+          debug:
+            msg: "An error occurred in the playbook {{ issueKey }}"         
+
+

@@ -38,7 +38,7 @@
     ssl_forced: true
     forward_scheme: "https"
   loop: "{{ domains }}"
-  when: item.domain_names in register_domain and support_https == true
+  when: item.domain_names in register_domain and support_https == "yes"
 
 
 - name: Register new domain

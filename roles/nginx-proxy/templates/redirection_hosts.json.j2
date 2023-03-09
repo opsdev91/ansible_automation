@@ -1,0 +1,20 @@
+{
+   "domain_names": [
+      "{{ register_domain }}"
+   ],
+   "forward_scheme": "{{ forward_scheme }}",
+   "forward_domain_name": "{{ forward_host }}",
+   "forward_http_code": {{ forward_http_code|int }},
+   "preserve_path": true,
+   "certificate_id": {{ ssl_id|int }},
+   "meta": {
+      "letsencrypt_agree": false,
+      "dns_challenge": false
+   },
+   "advanced_config": "",
+   "block_exploits": {{ block_exploits }},
+   "http2_support": {{ http2_support }},
+   "hsts_enabled": {{ hsts_enabled }},
+   "hsts_subdomains": {{ hsts_subdomains }},
+   "ssl_forced": {{ ssl_forced }}
+}
