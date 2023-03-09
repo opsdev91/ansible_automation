@@ -12,3 +12,5 @@ certificate_id: 0
 
 ssl_forced: false
 
+supported_ssl: ["aandd.io", "agileops.dev"]
+

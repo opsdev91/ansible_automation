@@ -41,11 +41,11 @@
           until: delete.json.success == 1
           retries: 10
           delay: 20
-          
+
         - name: Debug
           debug:
             msg: "Finished"
-      recuse:
+      rescue:
         - name: Error handling task
           debug:
             msg: "An error occurred in the playbook"              
