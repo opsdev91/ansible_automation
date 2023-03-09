@@ -58,13 +58,13 @@
 
 # register domain
 
-- name: Register domain
-  include_role:
-    name: nginx-proxy
-  vars:
-    register_domain: "{{ confluence_domain }}"
-    forward_port: "{{ confluence_connector_port }}"
-    forward_host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+# - name: Register domain
+#   include_role:
+#     name: nginx-proxy
+#   vars:
+#     register_domain: "{{ confluence_domain }}"
+#     forward_port: "{{ confluence_connector_port }}"
+#     forward_host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
 
 
