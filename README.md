@@ -52,22 +52,7 @@ If you have any questions or problems, you can refer to the included FAQ or open
 
 
 
-{
-    "errorMessage": null,
-    "statusCode": "201",
-    "data" : {
-        "issueKey": "TEST-1",
-        "serverIp": "10.158.10.100",
-        "User": "tinhtq",
-        "Password": "123456789",
-        "database_engine": "postgresql"
-        "database_engine_version": "9.6"
-        "database_username": "tinhtq"
-        "database_password": "12345678"
-        "confluence_database_name": "confluence"
-        "jira_database_name": "jira"
-        "database_host": "localhost"
-        "database_port": "5432
 
-    }
-}
+
+
+ansible-playbook register_domain.yml -e register_domain="quangtinh.agileops.dev" -e forward_port=80 -e forward_host="tinhtq.tinhtq.vn" -e issueKey=abc -e redirection_type=http_redirect -e '{"support_https": true}' -e forward_http_code=301 --ask-vault-pass -vvvvv

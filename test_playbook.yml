@@ -1,17 +1,16 @@
-- hosts: localhost
+- name: Example playbook
+  hosts: localhost
+  vars:
+    names:
+      - domain_names: "aandd.io"
+        cert_id: 77
+      - domain_names: "agileops.dev"
+        cert_id: 58
   tasks:
-    - set_fact:
-        db_string_default: "{{ applications }}"
-        db_engine: "{{ (applications | select('match', '^(mysql|postgresql):.*') | list | first | regex_search('^[^:]*')).0 | default('') }}"
-        db_version: "{{ (applications | select('match', '^(mysql|postgresql):.*') | list | first | regex_search('(?<=:)[^:]*$')).0 | default('') }}"
-
-
-
-    # - set_fact:
-    #     db_engine: "{{ db_string.split(':')[0] }}"
-    #     db_version: "{{ db_string.split(':')[1] }}"
-    - debug:
-        msg: "{{ db_engine }} "
-    # - debug: 
-    #     msg: "{{ database }} is {{ }}"
-      # when: db_string != ""
+    - name: Retrieve ssl_id based on domain name
+      set_fact:
+        ssl2_id: "{{ item.ssl_id }}"
+      loop: "{{ names }}"
+      when: item.domain_names in register_domain
+      vars:
+        register_domain: "agileops.dev"

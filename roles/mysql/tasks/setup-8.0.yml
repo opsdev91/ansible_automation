@@ -14,7 +14,7 @@
     name: "{{ mysql_python_package_debian }}"
     state: present
   register: apt_res
-  retries: 10
+  retries: 20
   delay: 30
   until: apt_res is succeeded
 

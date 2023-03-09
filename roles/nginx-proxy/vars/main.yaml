@@ -1,16 +1,19 @@
-register_domain: test.aandd.io
-
+register_domain: ""
 forward_scheme: http
-
-forward_host: 192.168.3.169
-
+forward_host: ""
 forward_port: 8080
-
 caching_enabled: false
-
-certificate_id: 0
-
+ssl_id: 0
 ssl_forced: false
+block_exploits: false
+websocket_support: false
+http2_support: false
+hsts_enabled: false
+hsts_subdomains: false 
 
-supported_ssl: ["aandd.io", "agileops.dev"]
 
+domains:
+  - domain_names: "aandd.io"
+    cert_id: 77
+  - domain_names: "agileops.dev"
+    cert_id: 58

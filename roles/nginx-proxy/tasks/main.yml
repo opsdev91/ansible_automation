@@ -30,6 +30,17 @@
     data: "{{ domains_resp.json | json_query(jmesquery)}}"
   loop: "{{ data }}"
 
+- debug:
+    msg: "{{ support_https }}"
+- name: Retrieve ssl_id based on domain name
+  set_fact:
+    ssl_id: "{{ item.cert_id }}"
+    ssl_forced: true
+    forward_scheme: "https"
+  loop: "{{ domains }}"
+  when: item.domain_names in register_domain and support_https == true
+
+
 - name: Register new domain
   uri:
     url: "{{ nginx_proxy_base_endpoint }}/nginx/proxy-hosts"
@@ -39,3 +50,15 @@
     headers:
       Authorization: "Bearer {{ auth.json.token }}"
     status_code: 201
+  when: redirection_type == 'reverse_proxy'  
+
+- name: Redirect new domain
+  uri:
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/redirection-hosts"
+    method: POST
+    body: "{{ lookup('template', './redirection_hosts.json.j2') }}"
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ auth.json.token }}"
+    status_code: 201
+  when: redirection_type == 'http_redirect'

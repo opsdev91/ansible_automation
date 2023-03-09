@@ -4,9 +4,9 @@
     ],
     "forward_scheme": "{{ forward_scheme }}",
     "forward_host": "{{ forward_host }}",
-    "forward_port": "{{ forward_port }}",
+    "forward_port": {{ forward_port |int}},
     "access_list_id": "0",
-    "certificate_id": {{ certificate_id|int }},
+    "certificate_id": {{ ssl_id|int }},
     "meta": {
         "letsencrypt_agree": false,
         "dns_challenge": false
@@ -16,8 +16,8 @@
     "block_exploits": {{ block_exploits }},
     "caching_enabled": {{ caching_enabled }},
     "allow_websocket_upgrade": {{ websocket_support }},
-    "http2_support": {{ ssl_forced }},
-    "hsts_enabled": {{ ssl_forced }},
-    "hsts_subdomains": {{ ssl_forced }},
+    "http2_support": {{ http2_support }},
+    "hsts_enabled": {{ hsts_enabled }},
+    "hsts_subdomains": {{ hsts_subdomains }},
     "ssl_forced": {{ ssl_forced }}
 }
