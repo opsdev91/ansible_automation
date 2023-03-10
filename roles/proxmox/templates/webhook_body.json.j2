@@ -1,0 +1,20 @@
+{
+    "errorMessage": null,
+    "statusCode": "201",
+    "data" : {
+        "issueKey": "TEST-123",
+        "serverIp": "{{ proxmox_ip }}",
+        "login_user": "{{ ssh_user }}",
+        "login_password": "{{ ssh_password }}",
+        "database_engine": "{{ db_engine | default('') }}",
+        "database_engine_version": "{{ db_version | default('') }}",
+        "database_username": "{{ database_user | default('') }}",
+        "database_password": "{{ database_password | default('') }}",
+        "confluence_database_name": "{{ confluence_database_name | default('') }}",
+        "jira_database_name": "{{ jira_database_name | default('') }}",
+        "database_host": "{{ database_host | default('localhost') }}",
+        "database_port": "{% if db_engine == 'mysql' %}3306{% elif db_engine == 'postgresql' %}5432{% endif %}",
+        "applications": {{ applications }},
+        "vm_id": "{{ next_resp.json.data }}"
+    }
+}

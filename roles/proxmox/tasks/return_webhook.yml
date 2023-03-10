@@ -1,0 +1,10 @@
+- name: Send to webhook
+  uri:
+    url: "https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191"
+    method: POST
+    body: "{{ lookup('template', './webhook_body.json.j2') }}"
+    body_format: json
+    headers:
+      Authorization: "{{ basic_auth }}"
+  vars:
+    proxmox_ip: "{{ ansible_ssh_host  }}"
