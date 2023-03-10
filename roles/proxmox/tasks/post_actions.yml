@@ -1,16 +1,16 @@
 ---
 # register domain
-- name: Register domain
-  include_role:
-      name: nginx-proxy
-  vars:
-      register_domain: "{{ domain }}"
-      forward_port: "{{ local_port }}"
-      forward_host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
-      forward_scheme: "https"
-      ssl_forced: true
-      certificate_id: 58
-  when: allow_public_access|bool == true
+# - name: Register domain
+#   include_role:
+#       name: nginx-proxy
+#   vars:
+#       register_domain: "{{ domain }}"
+#       forward_port: "{{ local_port }}"
+#       forward_host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+#       forward_scheme: "https"
+#       ssl_forced: true
+#       certificate_id: 58
+#   when: allow_public_access|bool == true
 
 # - name: Comment Issue
 #   uri:

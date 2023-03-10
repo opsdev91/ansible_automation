@@ -5,9 +5,10 @@
         - name: Register domain role
           include_role:
             name: nginx-proxy
-        - name: Return code
-          debug:
-            msg: "this is ok {{ issueKey }}"
+        - name: Return webhook
+          include_role:
+            name: nginx-proxy
+            tasks_from: return_webhook
       rescue:
         - name: Error handling task
           debug:
