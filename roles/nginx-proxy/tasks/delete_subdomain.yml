@@ -18,3 +18,24 @@
     jmesquery: "[?domain_names[?@==`{{ register_domain }}`]]"
     data: "{{ domains_resp.json | json_query(jmesquery)}}"
   loop: "{{ data }}"
+
+
+- name: Get current domains
+  uri:
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/redirection-hosts?expand=owner,access_list,certificate"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ auth.json.token }}"
+    return_content: yes
+  register: domains_resp
+
+- name: Delete existing domains
+  uri:
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/redirection-hosts/{{ item.id }}"
+    method: DELETE
+    headers:
+      Authorization: "Bearer {{ auth.json.token }}"
+  vars:
+    jmesquery: "[?domain_names[?@==`{{ register_domain }}`]]"
+    data: "{{ domains_resp.json | json_query(jmesquery)}}"
+  loop: "{{ data }}"
