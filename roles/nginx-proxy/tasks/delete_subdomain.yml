@@ -22,12 +22,13 @@
 
 - name: Get current domains
   uri:
-    url: "{{ nginx_proxy_base_endpoint }}/nginx/redirection-hosts?expand=owner,access_list,certificate"
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/redirection-hosts?expand=owner,certificate"
     method: GET
     headers:
       Authorization: "Bearer {{ auth.json.token }}"
     return_content: yes
   register: redirect_resp
+
 
 - name: Delete existing domains
   uri:
