@@ -1,0 +1,22 @@
+---
+- name: Get current domains
+  uri:
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/proxy-hosts?expand=owner,access_list,certificate"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ auth.json.token }}"
+    return_content: yes
+  register: domains_resp
+  failed_when: domains_resp.json | json_query("[?domain_names[?@==`{{ register_domain }}`]]") | length > 0
+
+
+- name: Delete existing domains
+  uri:
+    url: "{{ nginx_proxy_base_endpoint }}/nginx/proxy-hosts/{{ item.id }}"
+    method: DELETE
+    headers:
+      Authorization: "Bearer {{ auth.json.token }}"
+  vars:
+    jmesquery: "[?domain_names[?@==`{{ register_domain }}`]]"
+    data: "{{ domains_resp.json | json_query(jmesquery)}}"
+  loop: "{{ data }}"

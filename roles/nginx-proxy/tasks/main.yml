@@ -64,3 +64,7 @@
       Authorization: "Bearer {{ auth.json.token }}"
     status_code: 201
   when: redirection_type == 'http_redirect'
+
+- name: delete domain
+  include_tasks: delete_subdomain.yml
+  when: redirection_type == 'delete_subdomain'
