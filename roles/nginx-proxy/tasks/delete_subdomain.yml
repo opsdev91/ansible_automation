@@ -7,8 +7,6 @@
       Authorization: "Bearer {{ auth.json.token }}"
     return_content: yes
   register: domains_resp
-  failed_when: domains_resp.json | json_query("[?domain_names[?@==`{{ register_domain }}`]]") | length > 0
-
 
 - name: Delete existing domains
   uri:
