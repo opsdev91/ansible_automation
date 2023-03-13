@@ -15,6 +15,6 @@
         "database_host": "{{ database_host | default('localhost') }}",
         "database_port": "{% if db_engine == 'mysql' %}3306{% elif db_engine == 'postgresql' %}5432{% endif %}",
         "applications": {{ applications }},
-        "vm_id": "{{ next_resp.json.data }}"
+        "vm_id": "{{ hostvars['localhost'].next_resp.json.data }}"
     }
 }

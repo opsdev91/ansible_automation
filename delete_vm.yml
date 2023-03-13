@@ -46,7 +46,8 @@
           debug:
             msg: "Finished"
       rescue:
-        - name: Error handling task
-          debug:
-            msg: "An error occurred in the playbook"              
+        - name: Return webhook
+          include_role:
+            name: nginx-proxy
+            tasks_from: error_return_webhook            
 

@@ -56,3 +56,21 @@ If you have any questions or problems, you can refer to the included FAQ or open
 
 
 ansible-playbook register_domain.yml -e register_domain="quangtinh.agileops.dev" -e forward_port=80 -e forward_host="tinhtq.tinhtq.vn" -e issueKey=abc -e redirection_type=http_redirect -e '{"support_https": true}' -e forward_http_code=301 --ask-vault-pass -vvvvv
+
+
+For every request:
+
+register_domain = {{Sub-Domain|Domain}}
+support_https = {{Support HTTPS}}
+redirection_type = {{Redirection type}}
+issueKey = {{Issuekey}} 
+
+For "Reverse Proxy":
+
+forward_host = {{Host}}
+forward_port = {{Port}}
+
+For "HTTP Redirect":
+
+redirect_type = {{Redirect type}}
+forward_host = {{Target}} 

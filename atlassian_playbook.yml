@@ -111,18 +111,23 @@
           include_role:
             name: jira
           when: jira_version != ""
-        - name: Send mail
-          vars:
-            Issuekey: abc
-            mail: "confluence"
-            confluence_database_engine: "{{ db_engine }}"
-            confluence_database_engine_version: "{{ db_version }}"
-            confluence_database_username: "{{ database_username }}"
-            confluence_database_password: "{{ database_password }}"
+        # - name: Send mail
+        #   vars:
+        #     Issuekey: abc
+        #     mail: "confluence"
+        #     confluence_database_engine: "{{ db_engine }}"
+        #     confluence_database_engine_version: "{{ db_version }}"
+        #     confluence_database_username: "{{ database_username }}"
+        #     confluence_database_password: "{{ database_password }}"
+        #   include_role:
+        #     name: proxmox
+        #     tasks_from: sending_mail
+        - name: Send webhook
           include_role:
             name: proxmox
-            tasks_from: sending_mail
+            tasks_from: return_webhook
       rescue: 
-        - name: Error handling task
-          debug:
-            msg: "An error occurred in the playbook"      
+        - name: Return webhook
+          include_role:
+            name: nginx-proxy
+            tasks_from: error_return_webhook  

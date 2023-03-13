@@ -58,18 +58,18 @@
             db_engine: "{{ database_engine_version_string.split(':')[0] }}"
             db_version: "{{ database_engine_version_string.split(':')[1] }}"
           when: database_engine_version_string is defined
-        # - name: Add user to VM
-        #   include_role:
-        #     name: proxmox
-        #     tasks_from: add_user
-        # - name: Install Applications
-        #   include_role:
-        #     name: proxmox
-        #     tasks_from: install_applications
-        # - name: Post actions
-        #   include_role:
-        #     name: proxmox
-        #     tasks_from: post_actions
+        - name: Add user to VM
+          include_role:
+            name: proxmox
+            tasks_from: add_user
+        - name: Install Applications
+          include_role:
+            name: proxmox
+            tasks_from: install_applications
+        - name: Post actions
+          include_role:
+            name: proxmox
+            tasks_from: post_actions
         - name: Send webhook
           include_role:
             name: proxmox
@@ -80,10 +80,11 @@
         #     name: proxmox
         #     tasks_from: sending_mail
       rescue:
-        - name: Error handling task
-          debug:
-            msg: "Proxmox"
-        
+        - name: Return webhook
+          include_role:
+            name: nginx-proxy
+            tasks_from: error_return_webhook 
+
           
   # roles:
   #   - { role: geerlingguy.nginx }
