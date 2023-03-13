@@ -27,7 +27,7 @@
     headers:
       Authorization: "Bearer {{ auth.json.token }}"
     return_content: yes
-  register: domains_resp
+  register: redirect_resp
 
 - name: Delete existing domains
   uri:
@@ -37,5 +37,5 @@
       Authorization: "Bearer {{ auth.json.token }}"
   vars:
     jmesquery: "[?domain_names[?@==`{{ register_domain }}`]]"
-    data: "{{ domains_resp.json | json_query(jmesquery)}}"
+    data: "{{ redirect_resp.json | json_query(jmesquery)}}"
   loop: "{{ data }}"
