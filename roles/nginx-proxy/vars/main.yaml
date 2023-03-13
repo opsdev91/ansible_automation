@@ -10,7 +10,7 @@ websocket_support: false
 http2_support: false
 hsts_enabled: false
 hsts_subdomains: false 
-
+support_https: no
 
 domains:
   - domain_names: "aandd.io"
