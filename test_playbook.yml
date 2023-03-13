@@ -1,7 +1,7 @@
 - name: Example playbook
   hosts: localhost
   tasks:
-    debug:
-      msg: "{{ ansible_fact }}"
+    - debug:
+        msg: "{{ ansible_fact }}"
 
 
