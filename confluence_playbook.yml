@@ -50,9 +50,6 @@
     - name: Install jmespath python package
       command: python3 -m pip install jmespath
 
-
-
-
 - hosts: proxmox_hosts
   gather_facts: true
   become: yes

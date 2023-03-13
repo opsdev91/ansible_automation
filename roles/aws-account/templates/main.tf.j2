@@ -1,0 +1,26 @@
+terraform {
+  required_providers {
+    controltower = {
+      source  = "idealo/controltower"
+      version = "~> 1.0"
+    }
+  }
+}
+
+provider "controltower" {
+  region = "ap-southeast-1"
+}
+
+resource "controltower_aws_account" "account" {
+  name                = "{{ sso_first_name }}} {{ sso_last_name }}"
+  email               = "{{ sso_email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ sso_email.split('@')[1]}}"
+  organizational_unit = "{{ ou }}"
+
+#   organizational_unit_on_delete = "Suspended"
+
+  sso {
+    first_name = "{{ sso_first_name }}"
+    last_name  = "{{ sso_last_name }}"
+    email      = "{{ sso_email }}"
+  }
+}

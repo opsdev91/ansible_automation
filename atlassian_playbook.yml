@@ -63,7 +63,7 @@
             db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
-            jira_version: "{{ applications | select('search','jira') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            JSW_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('')}}"
             confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
         - debug:
             msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
@@ -101,16 +101,17 @@
           include_role:
             name: java
 
-        - name: Install jira
+        - name: Install JSW
           vars:
             jira_database_engine: "{{ db_engine }}"
             jira_database_engine_version: "{{ db_version }}"
             jira_database_username:  "{{ database_username }}"
             jira_database_password: "{{ database_password }}"
             jira_database_name: jira
+            jira_version: "{{ JSW_version }}"
           include_role:
             name: jira
-          when: jira_version != ""
+          when: JSW_version != ""
         # - name: Send mail
         #   vars:
         #     Issuekey: abc

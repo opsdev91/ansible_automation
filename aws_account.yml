@@ -1,0 +1,11 @@
+- hosts: localhost
+  connection: local 
+  tasks:
+    - block:
+        - name: Create aws-account
+          include_role:
+            name: aws-account
+        - name: Return webhook
+          include_role:
+            name: aws-account
+            tasks_from: add_user
