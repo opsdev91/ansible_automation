@@ -9,6 +9,7 @@
 
 - hosts: localhost
   connection: local
+  gather_facts: true
   tasks:
       - name: Clean proxmox_hosts
         ansible.builtin.known_hosts:
