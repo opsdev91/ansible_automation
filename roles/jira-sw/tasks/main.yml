@@ -10,13 +10,13 @@
 
 - name: JIRA | Create PostgreSQL user/database
   include_tasks: postgres.yml
-  when: jira_database_engine == "postgresql"
+  when: jsw_database_engine == "postgresql"
   tags:
       - postgres
 
 - name: JIRA | Create MySQL database
   include_tasks: mysql.yml
-  when: jira_database_engine == "mysql"
+  when: jsw_database_engine == "mysql"
   tags:
     - mysql
 
@@ -54,7 +54,7 @@
 
 - name: Get stats of the FS object
   ansible.builtin.stat:
-      path: "{{ jira_installation_dir }}"
+      path: "{{ jsw_installation_dir }}"
   register: p
 
 - name: JIRA | Installation

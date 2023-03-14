@@ -19,4 +19,6 @@ windows_hosts:
     # ansible_user: Administrator
     ansible_ssh_pass: 12345678a@
     ansible_shell_type: cmd
-
+# localhost:
+#   vars:
+#     ansible_ssh_pass: 

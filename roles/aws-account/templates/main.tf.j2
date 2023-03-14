@@ -12,7 +12,7 @@ provider "controltower" {
 }
 
 resource "controltower_aws_account" "account" {
-  name                = "{{ sso_first_name }}} {{ sso_last_name }}"
+  name                = "{{ sso_first_name }} {{ sso_last_name }}"
   email               = "{{ sso_email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ sso_email.split('@')[1]}}"
   organizational_unit = "{{ ou }}"
 

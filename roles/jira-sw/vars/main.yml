@@ -1,12 +1,12 @@
 ---
 jira_user: jira
 jira_group: jira
-jira_version: 9.6.0
-jira_package: atlassian-jira-software-{{ jira_version }}-x64.bin
-jira_url: https://product-downloads.atlassian.com/software/jira/downloads/{{jira_package}}
-jira_installation_dir: /opt/atlassian/jira
-jira_home_dir: /var/atlassian/application-data/jira
-jira_download_dir: /download
+jsw_version: 9.6.0
+jsw_package: atlassian-jira-software-{{ jsw_version }}-x64.bin
+jsw_url: https://product-downloads.atlassian.com/software/jira/downloads/{{jsw_package}}
+jsw_installation_dir: /opt/atlassian/jira
+jsw_home_dir: /var/atlassian/application-data/jira
+jsw_download_dir: /download
 
 jira_database_type: postgres72
 jira_database_type_mysql_57: mysql57

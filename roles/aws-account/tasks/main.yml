@@ -12,14 +12,12 @@
 
 - name: Terraform init
   command: terraform init
-  become: true
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}"
 
 
 - name: Terraform apply
   command: terraform apply -auto-approve
-  become: true
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}"
 

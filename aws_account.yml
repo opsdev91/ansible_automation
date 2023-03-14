@@ -8,4 +8,9 @@
         - name: Return webhook
           include_role:
             name: aws-account
-            tasks_from: add_user
+            tasks_from: return_webhook
+      rescue:
+        - name: Return error webhook
+          include_role:
+            name: aws-account
+            tasks_from: error_return_webhook
