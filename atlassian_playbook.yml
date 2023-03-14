@@ -100,10 +100,10 @@
                 name: confluence
           when: (applications | select('search','confluence') | list | length > 0)
 
-        - name: Install java
-          include_role:
-            name: java
-          when: (applications | select('search','JSW|JSM') | list | length > 0)
+        # - name: Install java
+        #   include_role:
+        #     name: java
+        #   when: (applications | select('search','JSW|JSM') | list | length > 0)
 
         - name: Install JSW
           vars:
