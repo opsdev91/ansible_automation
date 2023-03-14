@@ -3,6 +3,12 @@
   vars:
     email: "tinhtq@agileops.vn"
   tasks:
+    - set_fact:
+        db_engine: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=0) | first | default('')}}"
+        db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first }}"
+        jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
+        jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('5.6.0')}}"
+        confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('8.1.0')}}"
     - name: Print values
       debug:
-        msg: "{{ email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ email.split('@')[1]}}"
+        msg: "{{db_engine}}, {{ db_version }}, {{ jsw_version }}, {{ jsm_version }}, {{ confluence_version }}"

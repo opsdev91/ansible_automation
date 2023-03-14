@@ -63,20 +63,19 @@
             db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first }}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
-            jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
-            confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('8.1.0')}}"
+            # jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('5.6.0')}}"
         - debug:
             msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
         - name: Add user to VM
           include_role:
             name: proxmox
             tasks_from: add_user
-        - name: Install Postgresql
-          vars: 
-            postgresql_version: "{{ db_version | default('9.6') }}"
-          include_role:
-            name: postgres
-          when: db_engine == "postgresql"
+        # - name: Install Postgresql
+        #   vars: 
+        #     postgresql_version: "{{ db_version | default('9.6') }}"
+        #   include_role:
+        #     name: postgres
+        #   when: db_engine == "postgresql"
         - name: Install Mysql
           vars:
             mysql_user_name: "{{ database_username }}"
@@ -93,8 +92,13 @@
             confluence_database_username: "{{ database_username }}"
             confluence_database_password: "{{ database_password }}"
             confluence_database_name: confluence
-          include_role:
-            name: confluence
+          block:
+            - name: set_fact
+              set_fact:
+                confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('8.1.0')}}"
+            - name: Install Confluence
+              include_role:
+                name: confluence
           when: (applications | select('search','confluence') | list | length > 0)
 
         - name: Install java
@@ -120,8 +124,13 @@
             jsm_database_username:  "{{ database_username }}"
             jsm_database_password: "{{ database_password }}"
             jsm_database_name: jsm
-          include_role:
-            name: jira_sm
+          block:
+            - name: set_fact
+              set_fact:
+                 jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
+            - name: Install Jira SoftWare
+              include_role:
+                name: jira_sm
           when: (applications | select('search','JSM') | list | length > 0)
         # - name: Send mail
         #   vars:
