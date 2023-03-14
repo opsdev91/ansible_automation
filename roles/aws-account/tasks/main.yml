@@ -2,6 +2,16 @@
 - set_fact:
     root_email: "{{ email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ email.split('@')[1]}}"
 
+- name: Configure AWS.
+  shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
+  no_log: True
+  with_dict:
+    aws_access_key_id: "{{ aws_access_key }}"
+    aws_secret_access_key: "{{ aws_secret_key }}"
+    region: "{{ aws_region }}"
+    format: "{{ aws_format }}"
+  changed_when: false
+
 - name: Create a directory if it does not exist
   ansible.builtin.file:
     path: "{{ansible_facts.user_dir}}/{{ root_email }}"
@@ -25,3 +35,8 @@
     chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
 
 
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ansible_facts.user_dir}}/{{ root_email }}"
+    state: directory
+    mode: '0755'
