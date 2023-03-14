@@ -12,15 +12,15 @@ provider "controltower" {
 }
 
 resource "controltower_aws_account" "account" {
-  name                = "{{ sso_first_name }} {{ sso_last_name }}"
-  email               = "{{ sso_email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ sso_email.split('@')[1]}}"
+  name                = "{{ first_name }} {{ last_name }}"
+  email               = "{{ root_email }}"
   organizational_unit = "{{ ou }}"
 
 #   organizational_unit_on_delete = "Suspended"
 
   sso {
-    first_name = "{{ sso_first_name }}"
-    last_name  = "{{ sso_last_name }}"
-    email      = "{{ sso_email }}"
+    first_name = "{{ first_name }}"
+    last_name  = "{{ last_name }}"
+    email      = "{{ email }}"
   }
 }
