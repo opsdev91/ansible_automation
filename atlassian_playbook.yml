@@ -63,7 +63,6 @@
             db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first }}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
-            # jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('5.6.0')}}"
         - debug:
             msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
         - name: Add user to VM
@@ -113,8 +112,13 @@
             jsw_database_username:  "{{ database_username }}"
             jsw_database_password: "{{ database_password }}"
             jsw_database_name: jsw
-          include_role:
-            name: jira_sw
+          block:
+            - name: set_fact
+              set_fact:
+                jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
+            - name: Install Jira Software
+              include_role:
+                name: jira_sw
           when: (applications | select('search','JSW') | list | length > 0)
 
         - name: Install JSM
@@ -127,8 +131,8 @@
           block:
             - name: set_fact
               set_fact:
-                 jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
-            - name: Install Jira SoftWare
+                jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('5.6.0')}}"
+            - name: Install Jira Service Management
               include_role:
                 name: jira_sm
           when: (applications | select('search','JSM') | list | length > 0)
