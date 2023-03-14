@@ -1,5 +1,7 @@
 - hosts: localhost
-  connection: local 
+  connection: local
+  vars:
+    - webhook: https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191
   tasks:
     - block:
         - name: Create aws-account
