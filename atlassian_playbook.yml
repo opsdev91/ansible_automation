@@ -118,7 +118,7 @@
                 jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
             - name: Install Jira Software
               include_role:
-                name: jira_sw
+                name: jira-sw
           when: (applications | select('search','JSW') | list | length > 0)
 
         - name: Install JSM
