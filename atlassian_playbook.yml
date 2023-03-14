@@ -151,5 +151,5 @@
       rescue: 
         - name: Return webhook
           include_role:
-            name: nginx-proxy
+            name: proxmox
             tasks_from: error_return_webhook  

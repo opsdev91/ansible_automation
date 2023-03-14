@@ -1,15 +1,11 @@
 
-
 - debug:
     msg: "webhook is {{ webhook }}"
-
 - name: Send to webhook
   uri:
     url: "{{ webhook }}?issue={{ issueKey }}"
     method: POST
-    body: "{{ lookup('template', './webhook_body.json.j2') }}"
+    body: "{{ lookup('template', './error_webhook_body.json.j2') }}"
     body_format: json
     headers:
       Authorization: "{{ basic_auth }}"
-  vars:
-    proxmox_ip: "{{ ansible_ssh_host  }}"

@@ -1,7 +1,12 @@
 
+
+- debug:
+    msg: "webhook is {{ webhook }}"
+
+    
 - name: Send to webhook
   uri:
-    url: "{{webhook}}?issue={{ issueKey }}"
+    url: "{{ webhook }}?issue={{ issueKey }}"
     method: POST
     body: "{{ lookup('template', './webhook_body.json.j2') }}"
     body_format: json

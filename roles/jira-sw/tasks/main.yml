@@ -41,8 +41,8 @@
 
 - name: JIRA | Download package
   get_url:
-      dest: "{{ jira_download_dir }}/jira_installer"
-      url: "{{ jira_url }}"
+      dest: "{{ jsw_download_dir }}/jira_installer"
+      url: "{{ jsw_url }}"
       mode: "0755"
   register: jira_downloaded
   tags:
