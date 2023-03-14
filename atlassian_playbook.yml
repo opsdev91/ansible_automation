@@ -1,3 +1,4 @@
+
 ---
 
 - hosts: localhost
@@ -59,27 +60,38 @@
         - set_fact:
             ssh_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             ssh_user: "{{ to_email | regex_search('([^@]+)') }}"
-            db_engine: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=0) | first | default('')}}"
-            db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first }}"
+            mysql_version: "{{ applications | select('search','mysql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            postgresql_version: "{{ applications | select('search','postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
-        - debug:
-            msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
+            jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
+        - set_fact:
+            db_engine: "mysql"
+            db_version: {{ mysql_version }}
+          when: mysql_version != ""
+
+        - set_fact:
+            db_engine: "postgresql"
+            db_version: {{ postgresql_version }}
+          when: postgresql_version != ""
+
         - name: Add user to VM
           include_role:
             name: proxmox
             tasks_from: add_user
-        # - name: Install Postgresql
-        #   vars: 
-        #     postgresql_version: "{{ db_version | default('9.6') }}"
-        #   include_role:
-        #     name: postgres
-        #   when: db_engine == "postgresql"
+        - name: Install Postgresql
+          vars: 
+            postgresql_version: "{{ db_version }}"
+          include_role:
+            name: postgres
+          when: db_engine == "postgresql"
         - name: Install Mysql
           vars:
             mysql_user_name: "{{ database_username }}"
             mysql_user_password: "{{ database_password }}"
-            version_mysql_install: "{{ db_version | default('8.0')}}"
+            version_mysql_install: "{{ db_version }}"
           include_role:
             name: mysql
           when: db_engine == "mysql"
@@ -91,19 +103,13 @@
             confluence_database_username: "{{ database_username }}"
             confluence_database_password: "{{ database_password }}"
             confluence_database_name: confluence
-          block:
-            - name: set_fact
-              set_fact:
-                confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('8.1.0')}}"
-            - name: Install Confluence
-              include_role:
-                name: confluence
-          when: (applications | select('search','confluence') | list | length > 0)
+          include_role:
+            name: confluence
+          when: confluence_version != ""
 
-        # - name: Install java
-        #   include_role:
-        #     name: java
-        #   when: (applications | select('search','JSW|JSM') | list | length > 0)
+        - name: Install java
+          include_role:
+            name: java
 
         - name: Install JSW
           vars:
@@ -112,14 +118,9 @@
             jsw_database_username:  "{{ database_username }}"
             jsw_database_password: "{{ database_password }}"
             jsw_database_name: jsw
-          block:
-            - name: set_fact
-              set_fact:
-                jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
-            - name: Install Jira Software
-              include_role:
-                name: jira-sw
-          when: (applications | select('search','JSW') | list | length > 0)
+          include_role:
+            name: jira-sw
+          when: jsw_version != ""
 
         - name: Install JSM
           vars:
@@ -128,14 +129,9 @@
             jsm_database_username:  "{{ database_username }}"
             jsm_database_password: "{{ database_password }}"
             jsm_database_name: jsm
-          block:
-            - name: set_fact
-              set_fact:
-                jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('5.6.0')}}"
-            - name: Install Jira Service Management
-              include_role:
-                name: jira_sm
-          when: (applications | select('search','JSM') | list | length > 0)
+          include_role:
+            name: jira-sm
+          when: jsm_version != ""
         # - name: Send mail
         #   vars:
         #     Issuekey: abc
