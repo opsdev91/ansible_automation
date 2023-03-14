@@ -60,11 +60,11 @@
             ssh_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             ssh_user: "{{ to_email | regex_search('([^@]+)') }}"
             db_engine: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=0) | first | default('')}}"
-            db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            db_version: "{{ applications | select('search','mysql|postgresql') | map('split', ':') | map(attribute=1) | first }}"
             database_username: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
-            jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('')}}"
-            confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('9.6.0')}}"
+            confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('8.1.0')}}"
         - debug:
             msg: "{{ db_engine }} and {{ db_engine| type_debug }}"
         - name: Add user to VM
@@ -73,7 +73,7 @@
             tasks_from: add_user
         - name: Install Postgresql
           vars: 
-            postgresql_version: "{{ db_version }}"
+            postgresql_version: "{{ db_version | default('9.6') }}"
           include_role:
             name: postgres
           when: db_engine == "postgresql"
@@ -81,7 +81,7 @@
           vars:
             mysql_user_name: "{{ database_username }}"
             mysql_user_password: "{{ database_password }}"
-            version_mysql_install: "{{ db_version }}"
+            version_mysql_install: "{{ db_version | default('8.0')}}"
           include_role:
             name: mysql
           when: db_engine == "mysql"
@@ -95,11 +95,12 @@
             confluence_database_name: confluence
           include_role:
             name: confluence
-          when: confluence_version != ""
+          when: (applications | select('search','confluence') | list | length > 0)
 
         - name: Install java
           include_role:
             name: java
+          when: (applications | select('search','JSW|JSM') | list | length > 0)
 
         - name: Install JSW
           vars:
@@ -110,7 +111,18 @@
             jsw_database_name: jsw
           include_role:
             name: jira_sw
-          when: jsw_version != ""
+          when: (applications | select('search','JSW') | list | length > 0)
+
+        - name: Install JSM
+          vars:
+            jsm_database_engine: "{{ db_engine }}"
+            jsm_database_engine_version: "{{ db_version }}"
+            jsm_database_username:  "{{ database_username }}"
+            jsm_database_password: "{{ database_password }}"
+            jsm_database_name: jsm
+          include_role:
+            name: jira_sm
+          when: (applications | select('search','JSM') | list | length > 0)
         # - name: Send mail
         #   vars:
         #     Issuekey: abc

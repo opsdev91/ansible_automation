@@ -58,7 +58,7 @@
   register: p
 
 - name: JIRA | Installation
-  shell: "{{ jira_download_dir }}/jira_installer -q -varfile /tmp/response.varfile;"
+  shell: "{{ jsw_download_dir }}/jira_installer -q -varfile /tmp/response.varfile;"
   when: p.stat.isdir is not defined
 
 - name: JIRA | Config
@@ -74,7 +74,7 @@
 - name: JIRA | Allow all access to JIRA port
   ufw:
       rule: allow
-      port: "{{ jira_connector_port }}"
+      port: "{{ jsw_connector_port }}"
       proto: tcp
 
 # register domain

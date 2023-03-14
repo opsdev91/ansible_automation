@@ -40,9 +40,9 @@
   ansible.builtin.file:
     state: directory
     path: "{{ item }}"
-    owner: "{{ jira_user }}"
-    group: "{{ jira_group }}"
+    owner: "{{ jsw_user }}"
+    group: "{{ jsw_group }}"
     recurse: yes
   with_items: 
-    - "{{ jira_home_dir }}"
-    - "{{ jira_installation_dir }}"
+    - "{{ jsw_home_dir }}"
+    - "{{ jsw_installation_dir }}"
