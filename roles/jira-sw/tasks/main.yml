@@ -3,6 +3,10 @@
 - name: Install acl
   package:
       name: "acl"
+  register: acl
+  retries: 10
+  delay: 30
+  until: acl is succeeded
 
 - name: update apt cache
   apt:
