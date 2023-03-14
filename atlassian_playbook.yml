@@ -69,12 +69,12 @@
             confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
         - set_fact:
             db_engine: "mysql"
-            db_version: {{ mysql_version }}
+            db_version: "{{ mysql_version }}"
           when: mysql_version != ""
 
         - set_fact:
             db_engine: "postgresql"
-            db_version: {{ postgresql_version }}
+            db_version: "{{ postgresql_version }}"
           when: postgresql_version != ""
 
         - name: Add user to VM
@@ -87,6 +87,7 @@
           include_role:
             name: postgres
           when: db_engine == "postgresql"
+
         - name: Install Mysql
           vars:
             mysql_user_name: "{{ database_username }}"
