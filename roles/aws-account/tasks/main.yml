@@ -4,24 +4,24 @@
 
 - name: Create a directory if it does not exist
   ansible.builtin.file:
-    path: "{{ansible_facts.user_dir}}/{{ root_email }}}"
+    path: "{{ansible_facts.user_dir}}/{{ root_email }}"
     state: directory
     mode: '0755'
 
 - name: Copy main.tf file
   template:
     src: main.tf.j2
-    dest: "{{ansible_facts.user_dir}}/{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}/main.tf"
+    dest: "{{ansible_facts.user_dir}}/{{ root_email }}/main.tf"
 
 - name: Terraform init
   command: terraform init
   args:
-    chdir: "{{ansible_facts.user_dir}}/{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}"
+    chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
 
 
 - name: Terraform apply
   command: terraform apply -auto-approve
   args:
-    chdir: "{{ansible_facts.user_dir}}/{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}"
+    chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
 
 
