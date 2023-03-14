@@ -21,3 +21,4 @@ basic_auth: !vault |
           633335646231353066393837653131363339
 
 webhook: https://automation.atlassian.com/pro/hooks/660aaee8da29ae98124d305a22c8aee2628b3962
+issueKey: ""
