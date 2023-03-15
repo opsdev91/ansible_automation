@@ -1,7 +1,7 @@
 ---
 - name: restart jsm
   systemd:
-    name: jsm
+    name: jira
     state: restarted
     enabled: true
     daemon_reload: yes

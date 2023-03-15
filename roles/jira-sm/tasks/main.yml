@@ -53,7 +53,7 @@
 
 - name: JSM | Configuring service
   ansible.builtin.service:
-    name: JSM
+    name: jira
     state: restarted
 
 - name: JSM | Allow all access to JSM port

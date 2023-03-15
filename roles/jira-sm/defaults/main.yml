@@ -2,7 +2,7 @@
 jsm_version: 4.19.1
 
 jsm_server_port: 8006
-jsm_connector_port: 8081
+jsm_connector_port: 8080
 jsm_scheme: https
 jsm_domain: jsm800.aandd.io
 
