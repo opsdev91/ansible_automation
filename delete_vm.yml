@@ -44,7 +44,7 @@
 
         - name: Sending webhook
           vars: 
-            - delete_vm = "yes"
+            - delete_vm: yes
           include_role:
             name: proxmox
             tasks_from: return_webhook            
