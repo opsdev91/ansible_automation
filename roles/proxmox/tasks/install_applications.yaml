@@ -44,3 +44,8 @@
   include_role:
     name: postgres
   when: db_engine == "postgresql"
+
+- name: Install Nginx
+  include_role:
+    name: nginx
+  when: (applications | select('search','nginx') | list | length > 0)
