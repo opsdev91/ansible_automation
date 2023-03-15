@@ -42,9 +42,19 @@
           retries: 10
           delay: 20
 
-        - name: Debug
-          debug:
-            msg: "Finished"
+        - name: Send to webhook
+          uri:
+            url: "{{ webhook }}"
+            method: POST
+            body: >
+              ' "issues":["{{ issueKey }}"],
+                "errorMessage": null,
+                "statusCode": "201",
+                "data" : {
+                    "message": "{{ vm_id }} deleted" }'
+            body_format: json
+            headers:
+              Authorization: "{{ basic_auth }}"
       rescue:
         - name: Return webhook
           include_role:
