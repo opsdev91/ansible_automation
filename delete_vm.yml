@@ -43,11 +43,9 @@
           delay: 20
 
         - name: Sending webhook
-          vars: 
-            - delete_vm: yes
           include_role:
             name: proxmox
-            tasks_from: return_webhook            
+            tasks_from: delete_webhook          
 
       rescue:
         - name: Return webhook

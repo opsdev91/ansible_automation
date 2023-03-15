@@ -1,0 +1,14 @@
+
+
+- debug:
+    msg: "webhook is {{ webhook }}"
+
+
+- name: Send to delete-vm webhook
+  uri:
+    url: "{{ webhook }}"
+    method: POST
+    body: "{{ lookup('template', './vm_webhook_body.json.j2') }}"
+    body_format: json
+    headers:
+      Authorization: "{{ basic_auth }}"

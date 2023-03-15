@@ -14,15 +14,3 @@
       Authorization: "{{ basic_auth }}"
   vars:
     proxmox_ip: "{{ ansible_ssh_host  }}"
-  when: delete_vm != "yes"
-
-
-- name: Send to delete-vm webhook
-  uri:
-    url: "{{ webhook }}"
-    method: POST
-    body: "{{ lookup('template', './vm_webhook_body.json.j2') }}"
-    body_format: json
-    headers:
-      Authorization: "{{ basic_auth }}"
-  when: delete_vm == "yes"
