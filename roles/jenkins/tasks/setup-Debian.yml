@@ -6,6 +6,11 @@
       - apt-transport-https
       - gnupg
     state: present
+    register: depend_res
+    retries: 10
+    delay: 30
+    until: depend_res is succeeded
+
 
 - name: Add Jenkins apt repository key.
   ansible.builtin.get_url:
@@ -46,3 +51,7 @@
     name: jenkins
     state: "{{ jenkins_package_state }}"
   notify: configure default users
+  register: jenkins_res
+  retries: 10
+  delay: 30
+  until: jenkins_res is succeeded
