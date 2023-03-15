@@ -42,22 +42,16 @@
           retries: 10
           delay: 20
 
-        - name: Send to webhook
-          uri:
-            url: "https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191"
-            method: POST
-            body: >
-              "issues":["{{ issueKey }}"],
-              "errorMessage": null,
-              "statusCode": "201",
-              "data" : {
-                  "message": "{{ vm_id }} deleted" }
-            body_format: json
-            headers:
-              Authorization: "{{ basic_auth }}"
+        - name: Sending webhook
+          vars: 
+            - delete_vm = "yes"
+          include_role:
+            name: proxmox
+            tasks_from: return_webhook            
+
       rescue:
         - name: Return webhook
           include_role:
-            name: nginx-proxy
+            name: proxmox
             tasks_from: error_return_webhook            
 
