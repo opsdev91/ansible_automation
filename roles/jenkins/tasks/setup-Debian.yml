@@ -7,7 +7,7 @@
       - gnupg
     state: present
   register: depend_res
-  retries: 10
+  retries: 20
   delay: 30
   until: depend_res is succeeded
 

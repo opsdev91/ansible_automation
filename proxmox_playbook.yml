@@ -48,17 +48,18 @@
         - set_fact:
             ssh_password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
             ssh_user: "{{ to_email | regex_search('([^@]+)') }}"
+            mysql_version: "{{ applications | select('search','mysql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            postgresql_version: "{{ applications | select('search','postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            docker_install: "{{ applications | select('search','docker') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            nginx_install: "{{ applications | select('search','nginx') | map('split', ':') | map(attribute=1) | first | default('')}}"
+            jenkins_install: "{{ applications | select('search','jenkins') | map('split', ':') | map(attribute=1) | first | default('')}}"
 #Set username and password database if applications have mysql or postgresql
         - set_fact:    
             database_user: "{{ to_email | regex_search('([^@]+)') }}"
             database_password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters') }}"
-            database_engine_version_string: "{{ applications | select('search','mysql|postgresql') | join('') }}" 
-          when: (applications | select('search','mysql|postgresql') | list | length > 0)
+          when: mysql_version != "" 
 #Set db_engine and db_version if mysql or postgresql in applications
-        - set_fact:
-            db_engine: "{{ database_engine_version_string.split(':')[0] }}"
-            db_version: "{{ database_engine_version_string.split(':')[1] }}"
-          when: database_engine_version_string is defined
+
         - name: Add user to VM
           include_role:
             name: proxmox

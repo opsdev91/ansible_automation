@@ -33,24 +33,21 @@
   vars:
     mysql_user_name: "{{ database_user }}"
     mysql_user_password: "{{ database_password }}"
-    version_mysql_install: "{{ db_version }}"
   include_role:
     name: mysql
-  when: db_engine == "mysql"
+  when: mysql_version != ""
 
 - name: Install Postgresql
-  vars:
-    postgresql_version: "{{ db_version }}"
   include_role:
     name: postgres
-  when: db_engine == "postgresql"
+  when: postgresql_version != ""
 
 - name: Install Nginx
   include_role:
     name: nginx
-  when: (applications | select('search','nginx') | list | length > 0)
+  when: nginx_install == "1"
 
 - name: Install Jenkins
   include_role:
     name: jenkins
-  when: (applications | select('search','jenkins') | list | length > 0)
+  when: jenkins_install == "1"
