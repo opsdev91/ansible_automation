@@ -9,6 +9,7 @@
           include_role:
             name: nginx-proxy
             tasks_from: return_webhook
+          when: redirection_type != 'delete_subdomain'
       rescue:
         - name: Return webhook
           include_role:

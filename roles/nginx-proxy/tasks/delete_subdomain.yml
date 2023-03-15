@@ -40,3 +40,12 @@
     jmesquery: "[?domain_names[?@==`{{ register_domain }}`]]"
     data: "{{ redirect_resp.json | json_query(jmesquery)}}"
   loop: "{{ data }}"
+
+- name: Send to delete webhook
+  uri:
+    url: "{{webhook}}?issue={{ issueKey }}"
+    method: POST
+    body: "{{ lookup('template', './webhook_body.json.j2') }}"
+    body_format: json
+    headers:
+      Authorization: "{{ basic_auth }}"
