@@ -49,3 +49,8 @@
   include_role:
     name: nginx
   when: (applications | select('search','nginx') | list | length > 0)
+
+- name: Install Jenkins
+  include_role:
+    name: jenkins
+  when: (applications | select('search','jenkins') | list | length > 0)

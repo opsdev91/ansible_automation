@@ -34,3 +34,4 @@ allow_public_access: false
 
 local_port: 80
 
+delete_webhook: https://automation.atlassian.com/pro/hooks/a76de87d876952a6aed3d80ee8cc3ef425137e5e
