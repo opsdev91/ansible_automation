@@ -47,11 +47,11 @@
             url: "https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191"
             method: POST
             body: >
-              ' "issues":["{{ issueKey }}"],
-                "errorMessage": null,
-                "statusCode": "201",
-                "data" : {
-                    "message": "{{ vm_id }} deleted" }'
+              "issues":["{{ issueKey }}"],
+              "errorMessage": null,
+              "statusCode": "201",
+              "data" : {
+                  "message": "{{ vm_id }} deleted" }
             body_format: json
             headers:
               Authorization: "{{ basic_auth }}"
