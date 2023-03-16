@@ -45,7 +45,7 @@
   uri:
     url: "{{ delete_webhook }}?issue={{ issueKey }}"
     method: POST
-    body: "{{ lookup('template', './webhook_body.json.j2') }}"
+    body: "{{ lookup('template', './delete_webhook.json.j2') }}"
     body_format: json
     headers:
       Authorization: "{{ basic_auth }}"
