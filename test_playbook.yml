@@ -1,11 +1,13 @@
 - name: Example playbook
   hosts: localhost
   vars:
-    email: "tinhtq@agileops.vn"
+    files_to_download:
+      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.4-x64.bin"
+      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.5-x64.bin"
+      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.6-x64.bin"
   tasks:
-    - set_fact:
-          mysql_version: "{{ applications | select('search','mysql') | map('split', ':') | map(attribute=1) | first | default('')}}"
-          postgresql_version: "{{ applications | select('search','postgresql') | map('split', ':') | map(attribute=1) | first | default('')}}"
-    - name: Print values
-      debug:
-        msg: "{{mysql_version}}, {{ postgresql_version }}"
+    - name: Get list of filenames from URLs
+      set_fact:
+        filenames: "{{ files_to_download | map('basename') | list }}"
+    - debug:
+        var: filenames

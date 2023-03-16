@@ -3,6 +3,8 @@
   apt:
     name: dirmngr
     state: present
+  register: dirmngr_res
+  until: dirmngr_res is succeeded
 
 - name: Add PPA for Nginx (if configured).
   apt_repository:

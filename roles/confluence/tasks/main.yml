@@ -10,13 +10,28 @@
   when: confluence_database_engine == "mysql"
   tags:
     - mysql
+- name: Check if file exists
+  stat:
+    path: "{{ ansible_env.PWD }}/minio-binaries/mc"
+  register: file_info
+- block:
+    - name: Install minio client
+      shell: |
+        curl https://dl.min.io/client/mc/release/linux-amd64/mc --create-dirs -o {{ ansible_env.PWD }}/minio-binaries/mc
+        chmod +x {{ ansible_env.PWD }}/minio-binaries/mc
+    - name: Set alias
+      shell: "{{ ansible_env.PWD }}/minio-binaries/mc alias set minio http://storage.agileops.int {{ key }} {{ value }}"
+  when: not file_info.stat.exists
 
-- name: confluence | Download package
-  get_url:
-    dest: "{{ ansible_env.PWD }}/confluence_installer"
-    url: "{{ confluence_url }}"
-    mode: '0755'
-
+- name: Download package
+  shell: |
+    {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/confluence_package {{ ansible_env.PWD }}/confluence_installer
+    chmod 755 {{ ansible_env.PWD }}/confluence_installer
+# - name: confluence | Download package
+#   get_url:
+#     dest: "{{ ansible_env.PWD }}/confluence_installer"
+#     url: "{{ confluence_url }}"
+#     mode: '0755'
 
 - name: confluence | Update response
   template:

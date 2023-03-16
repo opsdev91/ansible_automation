@@ -9,7 +9,7 @@ mysql_user_password: 1234567
 mysql_root_home: /root
 mysql_root_username: root
 mysql_root_password: root
-version_mysql_install: 5.7
+mysql_version: 5.7
 # Set this to `true` to forcibly update the root password.
 mysql_root_password_update: false
 mysql_user_password_update: true
