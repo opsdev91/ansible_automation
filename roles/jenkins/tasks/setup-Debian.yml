@@ -2,7 +2,7 @@
 - name: Update apt cache if MySQL is not yet installed.
   apt: update_cache=yes
   changed_when: False
-  
+
 - name: Ensure dependencies are installed.
   apt:
     name:
@@ -11,7 +11,7 @@
       - gnupg
     state: present
   register: depend_res
-  retries: 20
+  retries: 30
   delay: 30
   until: depend_res is succeeded
 
