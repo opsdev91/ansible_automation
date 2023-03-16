@@ -25,7 +25,7 @@
 
 - name: Download package
   shell: |
-    {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/confluence_package {{ ansible_env.PWD }}/confluence_installer
+    {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ confluence_package }} {{ ansible_env.PWD }}/confluence_installer
     chmod 755 {{ ansible_env.PWD }}/confluence_installer
 # - name: confluence | Download package
 #   get_url:
