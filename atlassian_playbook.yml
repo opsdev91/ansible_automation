@@ -88,6 +88,10 @@
             name: mysql
           when: db_engine == "mysql"
 
+        - name: Install java
+          include_role:
+            name: java
+            
         - name: Install Confluence
           vars:
             confluence_database_engine: "{{ db_engine }}"
@@ -99,9 +103,7 @@
             name: confluence
           when: confluence_version != ""
 
-        - name: Install java
-          include_role:
-            name: java
+
 
         - name: Install JSW
           vars:

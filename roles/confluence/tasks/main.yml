@@ -14,6 +14,8 @@
   stat:
     path: "{{ ansible_env.PWD }}/minio-binaries/mc"
   register: file_info
+- debug:
+    msg: "{{ file_info }}"
 - block:
     - name: Install minio client
       shell: |
