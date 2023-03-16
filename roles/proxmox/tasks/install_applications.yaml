@@ -35,12 +35,12 @@
     mysql_user_password: "{{ database_password }}"
   include_role:
     name: mysql
-  when: mysql_version != "" or mysql_version != "0"
+  when: mysql_version != "" and mysql_version != "0"
 
 - name: Install Postgresql
   include_role:
     name: postgres
-  when: postgresql_version != "" or postgresql_version != "0"
+  when: postgresql_version != "" and postgresql_version != "0"
 
 - name: Install Nginx
   include_role:
