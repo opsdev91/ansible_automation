@@ -47,9 +47,12 @@
     name: nginx
   when: nginx_install == "1"
 
+- name: Install Java
+  include_role:
+    name: java
+  when: jenkins_install == "1"
+
 - name: Install Jenkins
   include_role:
-    name: 
-      - jenkins
-      - java
+    name: jenkins
   when: jenkins_install == "1"
