@@ -91,7 +91,7 @@
         - name: Install java
           include_role:
             name: java
-            
+
         - name: Install Confluence
           vars:
             confluence_database_engine: "{{ db_engine }}"
@@ -102,8 +102,6 @@
           include_role:
             name: confluence
           when: confluence_version != ""
-
-
 
         - name: Install JSW
           vars:

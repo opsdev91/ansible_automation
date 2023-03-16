@@ -25,7 +25,7 @@
   stat:
     path: "{{ ansible_env.PWD }}/minio-binaries/mc"
   register: file_info
-  
+
 - debug:
     msg: "{{ file_info }}"
 
@@ -41,8 +41,8 @@
 
 - name: Download package
   shell: |
-    {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsm_package }} {{ ansible_env.PWD }}/jsm_installer
-    chmod 755 {{ ansible_env.PWD }}/jsm_installer
+    {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsm_package }} {{ jsm_download_dir }}/jsm_installer
+    chmod 755 {{ jsm_download_dir }}//jsm_installer
 
 # - name: JSM | Download package
 #   get_url:
