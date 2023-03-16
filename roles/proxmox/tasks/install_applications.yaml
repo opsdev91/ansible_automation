@@ -49,5 +49,7 @@
 
 - name: Install Jenkins
   include_role:
-    name: jenkins
+    name: 
+      - jenkins
+      - java
   when: jenkins_install == "1"

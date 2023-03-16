@@ -1,5 +1,5 @@
 ---
-- name: Update apt cache if MySQL is not yet installed.
+- name: Update apt cache 
   apt:
     upgrade: yes
     update_cache: yes
