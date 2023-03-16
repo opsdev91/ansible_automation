@@ -43,7 +43,7 @@
 
 - name: Send to delete webhook
   uri:
-    url: "{{webhook}}?issue={{ issueKey }}"
+    url: "{{ delete_webhook }}?issue={{ issueKey }}"
     method: POST
     body: "{{ lookup('template', './webhook_body.json.j2') }}"
     body_format: json
