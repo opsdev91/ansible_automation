@@ -1,0 +1,12 @@
+- name: Get filename from URL
+  set_fact:
+    filename: "{{ confluence_url | basename }}"
+
+- name: Download files using wget
+  shell: "wget {{ confluence_url }} -P {{ ansible_env.PWD }}"
+  
+- name: Copy file
+  shell: "{{ ansible_env.PWD }}/minio-binaries/mc  cp  {{ ansible_env.PWD }}/{{ filename }} minio/agileops"
+
+- name: Delete file
+  shell: "rm -f {{ ansible_env.PWD }}/{{ filename }}" 

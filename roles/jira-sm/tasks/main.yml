@@ -34,7 +34,19 @@
   when: not file_info.stat.exists
 
 
+- name: Get list of filenames from URLs
+  command: "{{ ansible_env.PWD }}/minio-binaries/mc ls minio/agileops"
+  register: result
+
+- name: Get Confluence package names from stdout_lines
+  set_fact:
+    list_packages: "{{ result.stdout_lines | map('split', ' ') | map('last') | list }}"
+
 - name: Download package
+  include_tasks: download-package.yml
+  when: jsw_package not in list_packages
+
+- name: Copy package from minio server
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsm_package }} {{ jsm_download_dir }}/jsm_installer
     chmod 755 {{ jsm_download_dir }}//jsm_installer

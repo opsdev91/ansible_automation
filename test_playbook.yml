@@ -1,13 +1,14 @@
 - name: Example playbook
-  hosts: localhost
+  hosts: proxmox_hosts
   vars:
-    files_to_download:
-      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.4-x64.bin"
-      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.5-x64.bin"
-      - "https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.0.6-x64.bin"
+    confluence_package: atlassian-confluence-8.1.0-x64.bin
   tasks:
     - name: Get list of filenames from URLs
+      command: "{{ ansible_env.PWD }}/minio-binaries/mc ls minio/agileops"
+      register: result
+    - name: Get Confluence package names from stdout_lines
       set_fact:
-        filenames: "{{ files_to_download | map('basename') | list }}"
+        list_packages: "{{ result.stdout_lines | map('split', ' ') | map('last') | list }}"
     - debug:
-        var: filenames
+        msg: "hello"
+      when: confluence_package in list_packages

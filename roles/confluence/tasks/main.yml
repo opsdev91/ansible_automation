@@ -14,7 +14,7 @@
   stat:
     path: "{{ ansible_env.PWD }}/minio-binaries/mc"
   register: file_info
-  
+
 - debug:
     msg: "{{ file_info }}"
 
@@ -25,8 +25,19 @@
     {{ ansible_env.PWD }}/minio-binaries/mc alias set minio http://storage.agileops.int {{ key }} {{ value }}
   when: not file_info.stat.exists
 
+- name: Get list of filenames from URLs
+  command: "{{ ansible_env.PWD }}/minio-binaries/mc ls minio/agileops"
+  register: result
+
+- name: Get Confluence package names from stdout_lines
+  set_fact:
+    list_packages: "{{ result.stdout_lines | map('split', ' ') | map('last') | list }}"
 
 - name: Download package
+  include_tasks: download-package.yml
+  when: confluence_package not in list_packages
+
+- name: Copy package from minio server
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ confluence_package }} {{ ansible_env.PWD }}/confluence_installer
     chmod 755 {{ ansible_env.PWD }}/confluence_installer
