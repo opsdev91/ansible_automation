@@ -5,7 +5,7 @@
   connection: local
   vars:
     - proxmox_creation: false
-    - proxmox_hostname: Atlassian-{{ to_email | regex_search('([^@]+)') }}-{{'%d-%b'| strftime(ansible_date_time.epoch)}}
+    - proxmox_hostname: "{{ issueKey }}-{{ to_email | regex_search('([^@]+)') }}-{{'%d-%b'| strftime(ansible_date_time.epoch)}}"
   roles:
     - { role: proxmox, when: proxmox_creation == 'true' }
 

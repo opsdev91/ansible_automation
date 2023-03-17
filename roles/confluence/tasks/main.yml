@@ -40,7 +40,7 @@
 - name: Copy package from minio server
   register: cp_cf_package
   until: cp_cf_package is succeeded
-  tries: 5
+  retries: 5
   delay: 15
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ confluence_package }} {{ ansible_env.PWD }}/confluence_installer

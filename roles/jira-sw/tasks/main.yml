@@ -77,7 +77,7 @@
 - name: Copy package from minio server
   register: cp_jsw_package
   until: cp_jsw_package is succeeded
-  tries: 5
+  retries: 5
   delay: 15
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsw_package }} {{ jsw_download_dir }}/jira_installer

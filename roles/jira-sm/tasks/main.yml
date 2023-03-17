@@ -49,7 +49,7 @@
 - name: Copy package from minio server
   register: cp_jsm_package
   until: cp_jsm_package is succeeded
-  tries: 5
+  retries: 5
   delay: 15
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsm_package }} {{ jsm_download_dir }}/jsm_installer
