@@ -1,5 +1,5 @@
 - debug:
-    var: ansible_facts
+    msg: "{{ ansible_facts }}"
 - name: Copy file power to folder
   vars:
     proxmox_ip: "{{ ansible_facts['ip_addresses'][1] }}"
