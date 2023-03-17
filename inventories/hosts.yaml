@@ -16,7 +16,7 @@ windows_hosts:
   #   ansible:
   #     ansible_host: 10.158.0.101
   vars:
-    # ansible_user: Administrator
+    ansible_user: Administrator
     ansible_ssh_pass: !vault |
               $ANSIBLE_VAULT;1.1;AES256
               66346336613864633262373036383736386237643562376164656334326566353134386131663063
