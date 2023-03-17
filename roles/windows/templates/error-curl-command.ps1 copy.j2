@@ -1,0 +1,17 @@
+ Invoke-WebRequest -Uri 'https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191' `
+-Method Post `
+-Headers @{
+    'Accept' = 'application/json'
+    'Content-Type' = 'application/json'
+    'Authorization' = 'Basic YXV0b21hdGlvbkBhZ2lsZW9wcy52bjpBVEFUVDN4RmZHRjBOOGt1dGFhRHVXTExGUHk2LTU2MExuS0s2NXUyQ0Q5cEo3TlpoZ2k0VWpiWXRpUkJaQVpJRzQ2VF9GblhaZGtVcWpaUUNaaDV2Z0hBWFBZZVBPQ3E5bmpsXzBncVkzZGo0cHJ1NVJEV2s5UGlQbENNZVlWdDkzdGVfeEJjTlpDazRWMDVBTmNhelh6RkVQbFNzUXFJWl9DdDdCaW40UGlZVFVfa3UweFRZdVE9NzU5QTA5N0I='
+} `
+-Body '{
+    "issues":["{{ issueKey }}"],
+    "errorMessage": "Error when running playbook",
+    "statusCode": "500",
+    "data" : {
+        "vm_id": "{{ hostvars['localhost'].next_resp.json.data | default('')}}"
+    }
+}' `
+-UseBasicParsing
+ 

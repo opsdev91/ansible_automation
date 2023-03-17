@@ -1,0 +1,18 @@
+- debug:
+    var: ansible_facts
+- name: Copy file power to folder
+  vars:
+    proxmox_ip: "{{ ansible_facts['ip_addresses'][1] }}"
+  template:
+    src: "curl-command.ps1.j2"
+    dest: "{{ ansible_user_dir }}/error-curl-command.ps1"
+    owner: "{{ ansible_ssh_user }}"
+
+- name: Run command
+  win_shell: |
+    Powershell.exe Set-ExecutionPolicy RemoteSigned
+    Powershell.exe -File {{ ansible_user_dir }}/curl-command.ps1
+    Powershell.exe Set-ExecutionPolicy Restricted
+    del {{ ansible_user_dir }}/curl-command.ps1
+
+    

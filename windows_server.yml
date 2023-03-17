@@ -40,10 +40,11 @@
         - name: Send mail
           include_role:
             name: windows
-            tasks_from: sending_mail
+            tasks_from: return_webhook
       rescue:
         - name: Error handling task
-          debug:
-            msg: "Windows"
+          include_role:
+            name: windows
+            tasks_from: return_error_webhook
   
 
