@@ -37,7 +37,7 @@
           include_role:
             name: windows
             tasks_from: add_user
-        - name: Send mail
+        - name: Return webhook
           include_role:
             name: windows
             tasks_from: return_webhook

@@ -10,9 +10,10 @@
     "errorMessage": null,
     "statusCode": "201",
     "data" : {
-        "serverIp": "{{ proxmox_ip[] }}",
+        "serverIp": "{{ proxmox_ip }}",
         "login_user": "{{ rdp_user }}",
-        "login_password": "{{ rdp_password }}"
+        "login_password": "{{ rdp_password }}",
+        "vm_id": "{{ hostvars['localhost'].next_resp.json.data | default('')}}"
     }
 }' `
 -UseBasicParsing
