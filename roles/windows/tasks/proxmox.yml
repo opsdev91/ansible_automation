@@ -37,6 +37,7 @@
     - [ target, "{{ proxmox_node }}" ]
     - [ full, "1" ]
     - [ storage, "{{ proxmox_storage }}"]
+    - [ pool, "itsm"]
     return_content: yes
 
 - name: Check clone status
