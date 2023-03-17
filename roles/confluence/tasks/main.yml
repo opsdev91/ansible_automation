@@ -41,6 +41,10 @@
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ confluence_package }} {{ ansible_env.PWD }}/confluence_installer
     chmod 755 {{ ansible_env.PWD }}/confluence_installer
+  register: cp_jsm_package
+  until: cp_jsm_package is succeeded
+  tries: 5
+  delay: 15
 # - name: confluence | Download package
 #   get_url:
 #     dest: "{{ ansible_env.PWD }}/confluence_installer"

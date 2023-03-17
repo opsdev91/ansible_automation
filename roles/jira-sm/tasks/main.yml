@@ -44,13 +44,16 @@
 
 - name: Download package
   include_tasks: download-package.yml
-  when: jsw_package not in list_packages
+  when: jsm_package not in list_packages
 
 - name: Copy package from minio server
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsm_package }} {{ jsm_download_dir }}/jsm_installer
     chmod 755 {{ jsm_download_dir }}//jsm_installer
-
+  register: cp_jsm_package
+  until: cp_jsm_package is succeeded
+  tries: 5
+  delay: 15
 # - name: JSM | Download package
 #   get_url:
 #     dest: "{{ jsm_download_dir }}/jsm_installer"

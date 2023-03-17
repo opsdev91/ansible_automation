@@ -78,7 +78,10 @@
   shell: |
     {{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/{{ jsw_package }} {{ jsw_download_dir }}/jira_installer
     chmod 755 {{ jsw_download_dir }}/jira_installer
-
+  register: cp_package
+  until: cp_package is succeeded
+  tries: 5
+  delay: 15
   
 - name: JIRA | Update response
   template:
