@@ -20,7 +20,7 @@
   until: postgresql_package is succeeded
   retries: 5
   delay: 15
-  shell: "{{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/database/postgresql-{{postgresql_version}}/ {{ ansible_env.PWD }}"
+  shell: "{{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/database/postgresql-{{postgresql_version}}/ {{ ansible_env.PWD }}/ --recursive"
 
 
 - name: Select note
