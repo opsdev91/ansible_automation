@@ -65,7 +65,7 @@
   command: "{{ ansible_env.PWD }}/minio-binaries/mc ls minio/agileops"
   register: result
 
-- name: Get Confluence package names from stdout_lines
+- name: Get jira-sw package names from stdout_lines
   set_fact:
     list_packages: "{{ result.stdout_lines | map('split', ' ') | map('last') | list }}"
 

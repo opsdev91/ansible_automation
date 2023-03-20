@@ -11,5 +11,3 @@
     body_format: json
     headers:
       Authorization: "{{ basic_auth }}"
-  vars:
-    proxmox_ip: "{{ ansible_ssh_host  }}"
