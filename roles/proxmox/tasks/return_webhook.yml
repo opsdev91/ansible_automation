@@ -3,7 +3,6 @@
 - debug:
     msg: "webhook is {{ webhook }}"
 
-
 - name: Send to webhook
   uri:
     url: "{{ webhook }}"

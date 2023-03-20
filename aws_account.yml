@@ -7,6 +7,11 @@
         - name: Create aws-account
           include_role:
             name: aws-account
+          when: delete == 'no'
+        - name: Delete aws-account
+          include_role:
+            name: aws-account
+          when: delete == 'no'
         - name: Return webhook
           include_role:
             name: aws-account

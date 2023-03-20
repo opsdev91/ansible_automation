@@ -1,0 +1,19 @@
+- name: Terraform apply
+  command: terraform destroy -auto-approve
+  args:
+    chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
+
+
+- name: Delete directory
+  ansible.builtin.file:
+    path: "{{ansible_facts.user_dir}}/{{ root_email }}"
+    state: absent
+
+- name: Send to deleted webhook
+  uri:
+    url: "{{ webhook }}"
+    method: POST
+    body: "{{ lookup('template', './delete-webhook.json.j2') }}"
+    body_format: json
+    headers:
+      Authorization: "{{ basic_auth }}"
