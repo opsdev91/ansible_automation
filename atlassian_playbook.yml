@@ -67,7 +67,9 @@
             jsw_version: "{{ applications | select('search','JSW') | map('split', ':') | map(attribute=1) | first | default('')}}"
             jsm_version: "{{ applications | select('search','JSM') | map('split', ':') | map(attribute=1) | first | default('')}}"
             confluence_version: "{{ applications | select('search','confluence') | map('split', ':') | map(attribute=1) | first | default('')}}"
-
+            confluence_database_name: confluence
+            jsw_database_name: jsw
+            jsm_database_name: jsm
         - name: Add user to VM
           include_role:
             name: proxmox
@@ -98,7 +100,6 @@
             confluence_database_engine_version: "{{ db_version }}"
             confluence_database_username: "{{ database_username }}"
             confluence_database_password: "{{ database_password }}"
-            confluence_database_name: confluence
           include_role:
             name: confluence
           when: confluence_version != ""
@@ -109,7 +110,6 @@
             jsw_database_engine_version: "{{ db_version }}"
             jsw_database_username:  "{{ database_username }}"
             jsw_database_password: "{{ database_password }}"
-            jsw_database_name: jsw
           include_role:
             name: jira-sw
           when: jsw_version != ""
@@ -120,7 +120,6 @@
             jsm_database_engine_version: "{{ db_version }}"
             jsm_database_username:  "{{ database_username }}"
             jsm_database_password: "{{ database_password }}"
-            jsm_database_name: jsm
           include_role:
             name: jira-sm
           when: jsm_version != ""

@@ -1,7 +1,27 @@
 ---
-- name: Download deb package for postgresql
-  shell: wget -P {{ ansible_env.PWD }} {{ item }}
-  with_items: '{{ deb_file_download }}'
+- name: Check if file exists
+  stat:
+    path: "{{ ansible_env.PWD }}/minio-binaries/mc"
+  register: file_info
+
+- name: Install minio client
+  shell: |
+    curl https://dl.min.io/client/mc/release/linux-amd64/mc --create-dirs -o {{ ansible_env.PWD }}/minio-binaries/mc
+    chmod +x {{ ansible_env.PWD }}/minio-binaries/mc
+    {{ ansible_env.PWD }}/minio-binaries/mc alias set minio http://storage.agileops.int {{ key }} {{ value }}
+  when: not file_info.stat.exists
+
+# - name: Download deb package for postgresql
+#   shell: wget -P {{ ansible_env.PWD }} {{ item }}
+#   with_items: '{{ deb_file_download }}'
+
+- name: Copy package from minio server
+  register: postgresql_package
+  until: postgresql_package is succeeded
+  retries: 5
+  delay: 15
+  shell: "{{ ansible_env.PWD }}/minio-binaries/mc cp minio/agileops/database/postgresql-{{postgresql_version}}/ {{ ansible_env.PWD }}"
+
 
 - name: Select note
   shell: echo "postgresql-common postgresql-common/obsolete-major select Ok" | sudo debconf-set-selections;
