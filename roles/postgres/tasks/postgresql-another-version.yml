@@ -1,4 +1,13 @@
 ---
+- name: Install dependency packages
+  package:
+    name: "{{ item }}"
+  with_items: "{{ dependency_pkgs }}"
+  register: res_apt
+  until: "res_apt.stderr is undefined or '/var/lib/dpkg/lock-frontend' not in res_apt.stderr"
+  retries: 20
+  delay: 30
+  
 - name: Check if file exists
   stat:
     path: "{{ ansible_env.PWD }}/minio-binaries/mc"

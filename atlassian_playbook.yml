@@ -54,7 +54,7 @@
 
 - hosts: proxmox_hosts
   gather_facts: true
-  become: yes
+  become: true
   tasks:
     - block:
         - set_fact:
