@@ -5,22 +5,22 @@
     - delete: "no"
   tasks:
     - block:
-        # - name: Create aws-account
-        #   include_role:
-        #     name: aws-account
-        #   when: delete == 'no'
+        - name: Create aws-account
+          include_role:
+            name: aws-account
+          when: delete == 'no'
         - name: Delete aws-account
           include_role:
             name: aws-account
             tasks_from: delete_aws
           when: delete == 'yes'
-        # - name: Return webhook
-        #   include_role:
-        #     name: aws-account
-        #     tasks_from: return_webhook
-        #   when: delete == 'no'
-      # rescue:
-      #   - name: Return error webhook
-      #     include_role:
-      #       name: aws-account
-      #       tasks_from: error_return_webhook
+        - name: Return webhook
+          include_role:
+            name: aws-account
+            tasks_from: return_webhook
+          when: delete == 'no'
+      rescue:
+        - name: Return error webhook
+          include_role:
+            name: aws-account
+            tasks_from: error_return_webhook

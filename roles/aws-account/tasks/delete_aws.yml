@@ -1,12 +1,12 @@
 - name: Terraform destory
   command: terraform destroy -auto-approve
   args:
-    chdir: "{{ansible_facts.user_dir}}/{{ root_email_delete }}"
+    chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
 
 
 - name: Delete directory
   ansible.builtin.file:
-    path: "{{ansible_facts.user_dir}}/{{ root_email_delete }}"
+    path: "{{ansible_facts.user_dir}}/{{ root_email }}"
     state: absent
 
 - name: Send to deleted webhook
