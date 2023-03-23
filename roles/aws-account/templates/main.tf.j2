@@ -17,7 +17,6 @@ resource "controltower_aws_account" "account" {
   organizational_unit = "{{ ou }}"
 
   organizational_unit_id_on_delete = "ou-l547-j6ulduc0"
-  close_account_on_delete = true
 
   sso {
     first_name = "{{ first_name }}"
