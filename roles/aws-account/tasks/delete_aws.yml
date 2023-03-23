@@ -1,4 +1,4 @@
-- name: Terraform apply
+- name: Terraform destory
   command: terraform destroy -auto-approve
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"

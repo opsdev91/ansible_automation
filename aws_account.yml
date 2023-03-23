@@ -18,6 +18,7 @@
           include_role:
             name: aws-account
             tasks_from: return_webhook
+          when: delete == 'no'
       rescue:
         - name: Return error webhook
           include_role:
