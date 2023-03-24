@@ -11,7 +11,7 @@
 
 - name: Send to deleted webhook
   uri:
-    url: "{{ webhook }}"
+    url: "{{ delete_webhook }}"
     method: POST
     body: "{{ lookup('template', './delete-webhook.json.j2') }}"
     body_format: json
