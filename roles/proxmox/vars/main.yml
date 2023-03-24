@@ -6,7 +6,7 @@ proxmox_storage: local-lvm
 
 proxmox_core: 2
 
-proxmox_memory: 4096
+proxmox_memory: 4
 
 disk_size: 20
 

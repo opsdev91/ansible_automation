@@ -1,14 +1,7 @@
 - name: Example playbook
-  hosts: proxmox_hosts
-  vars:
-    confluence_package: atlassian-confluence-8.1.0-x64.bin
+  hosts: localhost
   tasks:
-    - name: Get list of filenames from URLs
-      command: "{{ ansible_env.PWD }}/minio-binaries/mc ls minio/agileops"
-      register: result
-    - name: Get Confluence package names from stdout_lines
-      set_fact:
-        list_packages: "{{ result.stdout_lines | map('split', ' ') | map('last') | list }}"
+    - set_fact:
+        memory2: "{{ memory|int *2}}"
     - debug:
-        msg: "hello"
-      when: confluence_package in list_packages
+        msg: number is {{ memory2 }}

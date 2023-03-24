@@ -63,7 +63,7 @@
       CSRFPreventionToken: "{{ auth.json.data.CSRFPreventionToken }}"
     body_format: form-urlencoded
     body:
-    - [ memory, "{{ proxmox_memory }}"]
+    - [ memory, "{{ proxmox_memory|int *1024 | int }}"]
     - [ cores, "{{ proxmox_core }}"]
     return_content: yes
 
