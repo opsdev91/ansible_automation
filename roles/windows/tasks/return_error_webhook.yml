@@ -6,11 +6,18 @@
     dest: "{{ ansible_user_dir }}/error-curl-command.ps1"
     owner: "{{ ansible_ssh_user }}"
 
-- name: Run command
-  win_shell: |
-    Powershell.exe Set-ExecutionPolicy RemoteSigned
-    Powershell.exe -File {{ ansible_user_dir }}/curl-command.ps1
+
+- name: Set policy
+  win_shell: Powershell.exe Set-ExecutionPolicy RemoteSigned
+    
+- name: Return error webhook
+  win_shell: Powershell.exe -File {{ ansible_user_dir }}/error-curl-command.ps1
+
+- name: Set policy restrict 
+  win_shell: | 
     Powershell.exe Set-ExecutionPolicy Restricted
-    del {{ ansible_user_dir }}/curl-command.ps1
+    del {{ ansible_user_dir }}/error-curl-command.ps1
+
+
 
     
