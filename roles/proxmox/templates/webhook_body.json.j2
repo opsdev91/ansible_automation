@@ -15,7 +15,7 @@
         "jsm_database_name": "{{ jsm_database_name | default('') }}",
         "database_host": "{{ database_host | default('localhost') }}",
         {% if db_engine is defined %}
-        "database_port": "{% if db_engine == 'mysql' %}3306{% elif db_engine == 'postgresql' %}5432{% endif %} | default('') ",
+        "database_port": "{% if db_engine == 'mysql' %}3306{% elif db_engine == 'postgresql' %}5432{% endif %}",
         {% endif %}
         "applications": {{ applications }},
         "vm_id": "{{ hostvars['localhost'].next_resp.json.data }}"
