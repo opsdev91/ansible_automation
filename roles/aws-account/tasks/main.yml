@@ -4,7 +4,6 @@
 
 - name: Configure AWS.
   shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
-  no_log: True
   with_dict:
     aws_access_key_id: "{{ aws_access_key }}"
     aws_secret_access_key: "{{ aws_secret_key }}"
@@ -18,10 +17,14 @@
     state: directory
     mode: '0755'
 
-- name: Copy main.tf file
+- name: Copy template file
   template:
-    src: main.tf.j2
-    dest: "{{ansible_facts.user_dir}}/{{ root_email }}/main.tf"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: 
+    - {src: main.tf.j2, dest: "{{ansible_facts.user_dir}}/{{ root_email }}/main.tf"}
+    - {src: Makefile.j2, dest: "{{ansible_facts.user_dir}}/{{ root_email }}/Makefile"}
+
 
 - name: Terraform init
   command: terraform init
@@ -34,4 +37,7 @@
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
 
-
+- name: Delete directory
+  ansible.builtin.file:
+    path: "{{ansible_facts.user_dir}}/{{ root_email }}"
+    state: absent

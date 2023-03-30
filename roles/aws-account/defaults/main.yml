@@ -39,7 +39,7 @@ aws_secret_key: !vault |
           30323565646137313636373631636466356462633930646661666133343263316237653136626262
           6533316639656164636634316434323431653063626131633133
 
-aws_region: eu-west-2
+aws_region: ap-southeast-1
 aws_format: table
 
 delete_webhook: https://automation.atlassian.com/pro/hooks/a76de87d876952a6aed3d80ee8cc3ef425137e5e

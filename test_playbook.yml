@@ -1,7 +1,9 @@
 - name: Example playbook
   hosts: localhost
   tasks:
-    - set_fact:
-        memory2: "{{ memory|int *2}}"
-    - debug:
-        msg: number is {{ memory2 }}
+    - name: Copy main.tf file
+      vars:
+        root_email: "tinhtq"
+      template:
+        src: ./roles/aws-account/templates/Makefile.j2
+        dest: "/Users/tinhtq/Documents/Projects/ansible-playbook/ansible_automation/test/Makefile"
