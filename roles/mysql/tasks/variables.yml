@@ -10,24 +10,24 @@
 - name: Define mysql_packages 8.0.
   set_fact:
     mysql_packages: "{{ __mysql_packages_8_0 | list }}"
-  when: mysql_packages is not defined and version_mysql_install == '8.0'
+  when: mysql_packages is not defined and mysql_version == '8.0'
 
 - name: Define mysql_packages 5.7
   set_fact:
     mysql_packages: "{{ __mysql_packages_5_7 | list }}"
-  when: mysql_packages is not defined and version_mysql_install == '5.7'
+  when: mysql_packages is not defined and mysql_version == '5.7'
 
 - name: Define _mysql_python_package_debian_5_7
   set_fact:
     mysql_python_package_debian: "{{ __mysql_python_package_debian_5_7| list }}"
   when:  
     - mysql_python_package_debian is not defined 
-    - version_mysql_install == '5.7' or version_mysql_install == '5.6'
+    - mysql_version == '5.7' or mysql_version == '5.6'
 
 - name: Define _mysql_python_package_debian_8_0
   set_fact:
     mysql_python_package_debian: "{{ __mysql_python_package_debian_8_0| list }}"
-  when: mysql_python_package_debian is not defined and version_mysql_install == '8.0'
+  when: mysql_python_package_debian is not defined and mysql_version == '8.0'
 
 - name: Define mysql_daemon.
   set_fact:
