@@ -1,6 +1,4 @@
 ---
-
-
 - name: Configure AWS.
   shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
   with_dict:
@@ -14,28 +12,27 @@
   ansible.builtin.file:
     path: "{{ansible_facts.user_dir}}/{{ root_email }}"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy template file
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-  with_items: 
-    - {src: main.tf.j2, dest: "{{ansible_facts.user_dir}}/{{ root_email }}/main.tf"}
-    - {src: Makefile.j2, dest: "{{ansible_facts.user_dir}}/{{ root_email }}/Makefile"}
-
+  with_items:
+    - {
+        src: main.tf.j2,
+        dest: "{{ansible_facts.user_dir}}/{{ root_email }}/main.tf",
+      }
 
 - name: Terraform init
-  command: make init
+  command: terraform init -backend-config="region=ap-southeast-1" -backend-config="bucket=tf-states-ap-southeast-1-368886022624" -backend-config="dynamodb_table=tf-states-ap-southeast-1-368886022624" -backend-config="key={{ root_email }}/terraform.tfstate"
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
-
 
 - name: Terraform apply
-  command: make apply
+  command: terraform apply -auto-approve
   args:
     chdir: "{{ansible_facts.user_dir}}/{{ root_email }}"
-
 
 - name: Delete directory
   ansible.builtin.file:
