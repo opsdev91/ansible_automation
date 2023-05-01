@@ -5,6 +5,9 @@
     - delete: "no"
   tasks:
     - block:
+        - set_fact:
+            root_email: "{{ email.split('@')[0] }}+{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}@{{ email.split('@')[1]}}"
+            unique_name: "{{ first_name }}-{{ last_name }}-{{ ansible_date_time.epoch | to_uuid | split('-') | first | join('')}}"
         - name: Create aws-account
           include_role:
             name: aws-account
@@ -20,6 +23,10 @@
             tasks_from: return_webhook
           when: delete == 'no'
       rescue:
+        - name: Delete directory
+          ansible.builtin.file:
+            path: "{{ansible_facts.user_dir}}/{{ root_email }}"
+            state: absent
         - name: Return error webhook
           include_role:
             name: aws-account

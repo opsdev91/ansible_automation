@@ -12,7 +12,7 @@ provider "controltower" {
 }
 
 resource "controltower_aws_account" "account" {
-  name                = "{{ first_name }} {{ last_name }}"
+  name                = "{{ unique_name }}"
   email               = "{{ root_email }}"
   organizational_unit = "{{ ou }}"
 

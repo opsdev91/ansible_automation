@@ -1,7 +1,7 @@
 proxmox_hosts:
-  # hosts:
-  #   ansible:
-  #     ansible_host: 10.158.0.203
+  hosts:
+    ansible:
+      ansible_host: 10.158.0.12
   vars:
     ansible_user: ubuntu
     ansible_ssh_pass: !vault |
