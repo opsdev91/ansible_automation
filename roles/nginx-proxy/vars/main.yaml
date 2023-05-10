@@ -14,7 +14,7 @@ support_https: no
 
 domains:
   - domain_names: "aandd.io"
-    cert_id: 77
+    cert_id: 110
   - domain_names: "agileops.dev"
     cert_id: 58
   - domain_names: "agileops.vn"
