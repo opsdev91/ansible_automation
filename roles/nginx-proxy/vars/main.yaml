@@ -19,4 +19,6 @@ domains:
     cert_id: 58
   - domain_names: "agileops.vn"
     cert_id: 103
+  - domain_names: "agileops.wiki"
+    cert_id: 112
 delete_webhook: https://automation.atlassian.com/pro/hooks/a76de87d876952a6aed3d80ee8cc3ef425137e5e
