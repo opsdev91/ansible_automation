@@ -17,10 +17,10 @@
 
 
 - name: Move MySQL Connector/J JAR to /opt/
-  command: "mv {{ ansible_env.PWD }}/mysql-connector-j-8.0.32/mysql-connector-java-8.0.32.jar {{ jsw_installation_dir }}/lib"
+  command: "mv {{ ansible_env.PWD }}/mysql-connector-j-8.0.32/mysql-connector-j-8.0.32.jar {{ jsw_installation_dir }}/lib"
 
 - name: Set owner of MySQL Connector/J JAR
   file:
-    path: "{{ jsw_installation_dir }}/lib/mysql-connector-java-8.0.32.jar"
+    path: "{{ jsw_installation_dir }}/lib/mysql-connector-j-8.0.32.jar"
     owner: "jira"
     group: "jira"

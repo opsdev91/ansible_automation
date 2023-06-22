@@ -18,11 +18,7 @@
   tags:
       - postgres
 
-- name: JIRA | Create MySQL database
-  include_tasks: mysql.yml
-  when: jsw_database_engine == "mysql"
-  tags:
-    - mysql
+
 
 - name: JIRA | Install dependencies
   ansible.builtin.apt:
@@ -100,6 +96,12 @@
 - name: JIRA | Installation
   shell: "{{ jsw_download_dir }}/jira_installer -q -varfile /tmp/response.varfile;"
   when: p.stat.isdir is not defined
+
+- name: JIRA | Create MySQL database
+  include_tasks: mysql.yml
+  when: jsw_database_engine == "mysql"
+  tags:
+    - mysql
 
 - name: JIRA | Config
   include_tasks: config.yml

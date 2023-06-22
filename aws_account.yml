@@ -1,7 +1,7 @@
 - hosts: localhost
   connection: local
   vars:
-    - webhook: https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191
+    - webhook: https://automation.atlassian.com/pro/hooks/89f8e0478bbe2af3aac618b5654c6acdd15d8e70
     - delete: "no"
   tasks:
     - block:

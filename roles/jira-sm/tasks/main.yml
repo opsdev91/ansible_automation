@@ -81,6 +81,12 @@
   shell: "{{ jsm_download_dir }}/jsm_installer -q -varfile /tmp/response.varfile;"
   when: p.stat.isdir is not defined
 
+- name: JIRA | Create MySQL database
+  include_tasks: mysql.yml
+  when: jsm_database_engine == "mysql"
+  tags:
+    - mysql
+    
 - name: JSM | Config
   include_tasks: config.yml
   tags:

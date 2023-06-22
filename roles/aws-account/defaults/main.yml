@@ -20,7 +20,7 @@ basic_auth: !vault |
           32383538636336646364646365663933653934616166303036666231373335646662386539303138
           386563393762343866313364653033323564
 
-webhook: https://automation.atlassian.com/pro/hooks/95e9eb4c9992956d86e622abcece07ded2648191
+webhook: https://automation.atlassian.com/pro/hooks/89f8e0478bbe2af3aac618b5654c6acdd15d8e70
 issueKey: ""
 aws_profile: default
 aws_access_key: !vault |
@@ -42,4 +42,4 @@ aws_secret_key: !vault |
 aws_region: ap-southeast-1
 aws_format: table
 
-delete_webhook: https://automation.atlassian.com/pro/hooks/a76de87d876952a6aed3d80ee8cc3ef425137e5e
+delete_webhook: https://automation.atlassian.com/pro/hooks/89f8e0478bbe2af3aac618b5654c6acdd15d8e70

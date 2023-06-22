@@ -49,3 +49,4 @@
     body_format: json
     headers:
       Authorization: "{{ basic_auth }}"
+

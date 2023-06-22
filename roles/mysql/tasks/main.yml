@@ -2,7 +2,8 @@
 # Variable configuration.
 
 - include_tasks: variables.yml
-
+- debug: 
+    msg: "{{ mysql_version}} mysql is"
 - include_tasks: setup-8.0.yml
   when: ansible_os_family == 'Debian' and mysql_version == '8.0'
 

@@ -85,7 +85,7 @@
           vars:
             mysql_user_name: "{{ database_username }}"
             mysql_user_password: "{{ database_password }}"
-            version_mysql_install: "{{ db_version }}"
+            mysql_version: "{{ db_version }}"
           include_role:
             name: mysql
           when: db_engine == "mysql"
