@@ -1,4 +1,8 @@
 
+- name: Retrieve ssl_id based on domain name
+  set_fact:
+    forward_scheme: "https"
+  when: support_https == "yes"
 - name: Send to webhook
   uri:
     url: "{{webhook}}?issue={{ issueKey }}"
