@@ -10,7 +10,6 @@
     - [ password, "{{ proxmox_api_password }}" ]
     return_content: yes
   register: auth
-
 - name: Get next id
   uri:
     url: "{{ proxmox_base_endpoint }}/extjs/cluster/nextid?_dc={{ ansible_date_time.epoch }}"
