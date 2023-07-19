@@ -6,7 +6,7 @@ proxmox_storage: local-lvm
 proxmox_node: agileops158
 proxmox_api_user: root@pam
 
-proxmox_api_host: 10.158.0.10
+proxmox_api_host: 10.158.1.27
 
 proxmox_gateway: 10.158.12.1
 
