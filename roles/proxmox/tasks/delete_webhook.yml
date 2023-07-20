@@ -1,13 +1,11 @@
-
-
 - debug:
-    msg: "webhook is {{ webhook }}"
-
+    msg: "webhook is {{ delete_webhook }}"
 
 - name: Send to delete-vm webhook
   uri:
     url: "{{ delete_webhook }}"
     method: POST
+    validate_certs: no
     body: "{{ lookup('template', './vm_webhook_body.json.j2') }}"
     body_format: json
     headers:

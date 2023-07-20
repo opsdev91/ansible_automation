@@ -44,6 +44,7 @@
 - name: Send to delete webhook
   uri:
     url: "{{ delete_webhook }}?issue={{ issueKey }}"
+    validate_certs: no
     method: POST
     body: "{{ lookup('template', './delete_webhook.json.j2') }}"
     body_format: json

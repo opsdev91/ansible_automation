@@ -6,6 +6,7 @@
 - name: Send to webhook
   uri:
     url: "{{webhook}}?issue={{ issueKey }}"
+    validate_certs: no
     method: POST
     body: "{{ lookup('template', './webhook_body.json.j2') }}"
     body_format: json
