@@ -18,7 +18,7 @@ domains:
   - domain_names: "agileops.dev"
     cert_id: 58
   - domain_names: "agileops.vn"
-    cert_id: 103
+    cert_id: 121
   - domain_names: "agileops.wiki"
     cert_id: 112
   - domain_names: "agileops.store"
