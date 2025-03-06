@@ -2,7 +2,7 @@
 jsw_user: jira
 jsw_group: jira
 jsw_version: 9.6.0
-jsw_package: atlassian-jira-software-{{ jsw_version }}-x64.bin
+jsw_package: atlassian-jira-{{ jsw_version }}-x64.bin
 jsw_url: https://product-downloads.atlassian.com/software/jira/downloads/{{jsw_package}}
 jsw_installation_dir: /opt/atlassian/jira
 jsw_home_dir: /var/atlassian/application-data/jira
